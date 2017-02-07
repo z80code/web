@@ -10,6 +10,7 @@ public class Place {
     private String status;
     private String sold;
     private int sessionId;
+    private double costMultiplier;
     private int theaterId;
 
     public Place() {
@@ -21,20 +22,22 @@ public class Place {
                 resultSet.getString(4),
                 resultSet.getString(5),
                 resultSet.getInt(6),
-                resultSet.getInt(6));
+                resultSet.getDouble(7),
+                resultSet.getInt(8));
     }
 
-    public Place(int row, int seat, String status, String sold, int sessionId, int theaterId) {
-        this(0, row,  seat,  status,  sold,  sessionId,  theaterId);
+    public Place(int row, int seat, String status, String sold, int sessionId, double costMultiplier, int theaterId) {
+        this(0, row,  seat,  status,  sold,  sessionId, costMultiplier, theaterId);
     }
 
-    public Place(int id, int row, int seat, String status, String sold, int sessionId, int theaterId) {
+    public Place(int id, int row, int seat, String status, String sold, int sessionId, double costMultiplier, int theaterId) {
         this.id = id;
         this.row = row;
         this.seat = seat;
         this.status = status;
         this.sold = sold;
         this.sessionId = sessionId;
+        this.costMultiplier =costMultiplier;
         this.theaterId = theaterId;
     }
 
@@ -92,6 +95,14 @@ public class Place {
 
     public void setTheaterId(int theaterId) {
         this.theaterId = theaterId;
+    }
+
+    public double getCostMultiplier() {
+        return costMultiplier;
+    }
+
+    public void setCostMultiplier(double costMultiplier) {
+        this.costMultiplier = costMultiplier;
     }
 }
 
