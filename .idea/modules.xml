@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/by.training.epam.iml" filepath="$PROJECT_DIR$/.idea/modules/by.training.epam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/by.training.epam_main.iml" filepath="$PROJECT_DIR$/.idea/modules/by.training.epam_main.iml" group="by.training.epam" />
+    </modules>
+  </component>
+</project>

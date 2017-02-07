@@ -1,6 +1,8 @@
 package by.gsu.epamlab.dao.models;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Film {
     private int id;
@@ -13,8 +15,18 @@ public class Film {
     public Film() {
     }
 
+    public Film(ResultSet resultSet) throws SQLException {
+        this(resultSet.getInt(1),
+             resultSet.getString(2),
+             resultSet.getDate(3),
+             resultSet.getInt(4),
+             resultSet.getString(5),
+             resultSet.getString(6));
+    }
+
+
     public Film(String title, Date release, int directorId, String description, String image) {
-        this(0, title,release,directorId,description,image);
+        this(0, title, release, directorId, description, image);
 
     }
 
