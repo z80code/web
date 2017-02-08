@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>Document</title>
 		<link rel="stylesheet" type="text/css" href="styles/styles.css">
+		<script src="js/cinema.js"></script>
 		<meta name=viewport content="width=device-width, initial-scale=1">
 	</head>
 	<body>
@@ -12,28 +13,18 @@
 				<div class="container_right">
 					<!-- header -->
 					<header id="header">
-						<h3>...world of dreams...</h3>
+						<h3>...world of dreams...</h3>		
+						<img src="images/header_bg.png" alt="">
 					</header>
 					<!-- /header -->
 					<!-- menu -->			
 					<nav>
 						<ul>
+							<li><a href="#">films</a></li>
 							<li><a href="#">today</a></li>
 							<li><a href="#">tomorrow</a></li>
-							<li class="dropdown">
-								<a href="#">weak</a>
-								<div class="dropdown-content"> 
-									<a href="">Monday</a>
-									<a href="">Tuesday</a>
-									<a href="">Wednesday</a>
-									<a href="">Wednesday</a>
-									<a href="">Friday</a>
-									<a href="">Saturday</a>
-									<a href="">Sunday</a>									
-								</div>
-							</li>
-
-							<li class="dropdown">
+							<li><a href="#">weak</a></li>
+<!-- 							<li class="dropdown">
 								<a  href="" class="dropbtn">genres</a>
 								<div class="dropdown-content"> 
 									<a href="">Absurdist</a>
@@ -41,13 +32,14 @@
 									<a href="">Adventure</a>
 									<a href="">Animation</a>
 								</div>
-							</li>
-							<li><a href="#">find</a></li>
+							</li> -->
+						<!-- 	<li><a href="#">find</a></li> -->
 						</ul>
 					</nav>
 					<!-- /menu -->	
 					<!-- main -->
 					<main>
+					<!--
 						<div class="menu_right">
 							<ul>
 								<li><a href="">Monday</a>
@@ -66,16 +58,62 @@
 								<li><a href="">Saturday</a></li>
 								<li><a href="">Sunday</a></li>
 							</ul>				
-						</div>
-						<div class="description">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-						<div class="description">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-						<div class="description">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>							
+						</div> -->
+						<div class="film_description">
+							<div class="description_header">
+								<div class="description_title">
+									Title of the film
+								</div>
+								<div class="description_release">
+									2017
+								</div>	
+								<div class="description_director">
+									director name
+								</div>	
+							</div>
+							<div class="description_body">
+								<div class="description_image">
+									<img src="images/velikaya-stena.jpg" alt="">
+								</div>
+								<div class="description_context">
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								</div>
+							</div>
+							<div class="description_footer">
+								<div class="description_day">
+									<a href="">
+										<div class="description_day_date">3.02.2017</div>
+										<div class="description_day_weakday">weakday</div>
+									</a>
+								</div>
+								<div class="description_day">
+									<div class="description_day_date">4.02.2017</div>
+									<div class="description_day_weakday">weakday</div>
+								</div>	
+								<div class="description_day">
+									<div class="description_day_date">5.02.2017</div>
+									<div class="description_day_weakday">weakday</div>
+								</div>
+								<div class="description_day">
+									<div class="description_day_date">6.02.2017</div>
+									<div class="description_day_weakday">weakday</div>
+								</div>	
+								<div class="description_day">
+									<div class="description_day_date">7.02.2017</div>
+									<div class="description_day_weakday">weakday</div>
+								</div>
+								<div class="description_day">
+									<div>
+										<div class="description_day_date">8.02.2017</div>
+										<div class="description_day_weakday">weakday</div>
+									</div>
+								</div>
+								<div class="description_day">
+									<div class="description_day_date">9.02.2017</div>
+									<div class="description_day_weakday">weakday</div>
+								</div>	
+							</div>
+						</div>				
 					</main>
 					<!-- /main -->
 					<!-- footer -->
