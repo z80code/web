@@ -53,4 +53,12 @@ public class Genre {
         this.info = info;
     }
 
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", info='" + info + '\'' +
+                '}';
+    }
 }

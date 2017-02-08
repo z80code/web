@@ -74,4 +74,15 @@ public class Session {
     public void setTheaterId(int theaterId) {
         this.theaterId = theaterId;
     }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "id=" + id +
+                ", filmId=" + filmId +
+                ", dateTime=" + dateTime +
+                ", cost=" + cost +
+                ", theaterId=" + theaterId +
+                '}';
+    }
 }

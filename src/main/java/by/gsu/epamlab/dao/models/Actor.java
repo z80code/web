@@ -19,4 +19,5 @@ public class Actor extends Man {
     public Actor(int id, String name, String info) {
         super(id, name, info);
     }
+
 }

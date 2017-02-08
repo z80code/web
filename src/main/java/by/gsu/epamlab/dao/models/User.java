@@ -14,11 +14,11 @@ public class User extends Man {
 
     public User(ResultSet resultSet) throws SQLException {
         this(resultSet.getInt(1),
-             resultSet.getString(2),
-             resultSet.getString(3),
-             resultSet.getInt(4),
-             resultSet.getString(5),
-             resultSet.getString(6));
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getInt(4),
+                resultSet.getString(5),
+                resultSet.getString(6));
     }
 
     public User(String login, String password, int role, String name, String info) {
@@ -26,7 +26,7 @@ public class User extends Man {
 
     }
 
-    public User(int id, String login, String password, int role,  String name, String info) {
+    public User(int id, String login, String password, int role, String name, String info) {
         super(id, name, info);
         this.login = login;
         this.password = password;
@@ -61,12 +61,10 @@ public class User extends Man {
     @Override
     public String toString() {
         return "User{" +
-                "id='"  + getId() + '\'' +
+                super.toString() +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", name='" + getName() + '\'' +
-                ", info='" + getInfo() +'\'' +
                 '}';
     }
 }

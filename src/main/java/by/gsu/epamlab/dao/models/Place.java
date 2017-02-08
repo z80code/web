@@ -104,5 +104,19 @@ public class Place {
     public void setCostMultiplier(double costMultiplier) {
         this.costMultiplier = costMultiplier;
     }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + id +
+                ", row=" + row +
+                ", seat=" + seat +
+                ", status='" + status + '\'' +
+                ", sold='" + sold + '\'' +
+                ", sessionId=" + sessionId +
+                ", costMultiplier=" + costMultiplier +
+                ", theaterId=" + theaterId +
+                '}';
+    }
 }
 

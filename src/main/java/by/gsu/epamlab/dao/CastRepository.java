@@ -10,11 +10,11 @@ import java.util.List;
 
 public class CastRepository extends AbstractRepository<Cast> {
 
-    private final static String SELECT_ALL = "select * from cast";
-    private final static String SELECT_BY_ID = "select * from cast where cast.id=?";
-    private final static String SELECT_BY_FILM_ACTOR = "select * from cast where cast.filmId=? and cast.actorId=?";
-    private final static String DELETE_BY_ID = "delete from cast where cast.id=?";
-    private final static String ADD_CAST = "insert into users(filmId, actorId) values(?,?)";
+    private final static String SELECT_ALL = "select * from casts";
+    private final static String SELECT_BY_ID = "select * from casts where casts.id=?";
+    private final static String SELECT_BY_FILM_ACTOR = "select * from casts where casts.filmId=? and casts.actorId=?";
+    private final static String DELETE_BY_ID = "delete from casts where casts.id=?";
+    private final static String ADD_CAST = "insert into casts(filmId, actorId) values(?,?)";
 
     public CastRepository(Connection conn) {
         super(conn);

@@ -3,26 +3,27 @@ package by.gsu.epamlab.dao.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Cast {
+public class FilmGenre {
     private int id;
     private int filmId;
-    private int actorId;
+    private int genreId;
 
-    public Cast() {
+    public FilmGenre() {
     }
 
-    public Cast(ResultSet resultSet) throws SQLException {
+    public FilmGenre(ResultSet resultSet) throws SQLException {
         this(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
     }
 
-    public Cast(int filmId, int actorId) {
-        this(0, filmId, actorId);
+
+    public FilmGenre(int filmId, int genreId) {
+        this(0, filmId, genreId);
     }
 
-    public Cast(int id, int filmId, int actorId) {
+    public FilmGenre(int id, int filmId, int genreId) {
         this.id = id;
         this.filmId = filmId;
-        this.actorId = actorId;
+        this.genreId = genreId;
     }
 
     public int getId() {
@@ -41,20 +42,20 @@ public class Cast {
         this.filmId = filmId;
     }
 
-    public int getActorId() {
-        return actorId;
+    public int getGenreId() {
+        return genreId;
     }
 
-    public void setActorId(int actorId) {
-        this.actorId = actorId;
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
     @Override
     public String toString() {
-        return "Cast{" +
+        return "FilmGenres{" +
                 "id=" + id +
                 ", filmId=" + filmId +
-                ", actorId=" + actorId +
+                ", genreId=" + genreId +
                 '}';
     }
 }

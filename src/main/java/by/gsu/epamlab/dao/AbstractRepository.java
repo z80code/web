@@ -27,7 +27,7 @@ abstract class AbstractRepository<T> implements IRepository<T> {
 
     ResultSet request(String sql) throws SQLException {
         st = conn.createStatement();
-        return preSt.executeQuery(sql);
+        return st.executeQuery(sql);
     }
 
     int prepareUpdate(String sql, Object... params) throws SQLException {

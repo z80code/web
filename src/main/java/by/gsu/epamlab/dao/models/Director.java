@@ -18,4 +18,5 @@ public class Director extends Man {
     public Director(int id, String name, String info) {
         super(id, name, info);
     }
+
 }

@@ -60,4 +60,14 @@ public class Order {
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", sessionId=" + sessionId +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }
