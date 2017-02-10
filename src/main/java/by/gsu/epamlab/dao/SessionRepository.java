@@ -15,7 +15,7 @@ public class SessionRepository extends AbstractRepository<Session> {
     private final static String SELECT_BY_ID = "select * from sessions where sessions.id=?";
     private final static String SELECT_BY_SESSION = "select * from sessions where sessions.filmId=? and sessions.dateTime=? and sessions.theaterId=?";
     private final static String DELETE_BY_ID = "delete from sessions where sessions.id=?";
-    private final static String ADD_USER = "insert into sessions(filmId, dateTime, cost, theaterId) values(?,?,?,?)";
+    private final static String ADD_USER = "insert into sessions(filmId, dateTime, theaterId) values(?,?,?)";
 
     public SessionRepository(Connection conn) {
         super(conn);
@@ -40,7 +40,6 @@ public class SessionRepository extends AbstractRepository<Session> {
         prepareUpdate(ADD_USER,
                 session.getFilmId(),
                 session.getDateTime(),
-                session.getCost(),
                 session.getTheaterId());
 
         return getByUserSession(session.getFilmId(), session.getDateTime(), session.getTheaterId());

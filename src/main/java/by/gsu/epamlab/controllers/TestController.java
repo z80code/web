@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 @WebServlet("/api")
 public class TestController extends HttpServlet {
@@ -39,44 +38,9 @@ public class TestController extends HttpServlet {
                 sb.append(item + "\n");
             }
             sb.append(" * * * * * \n");
+
             DirectorRepository directors = new DirectorRepository(conn);
             for (Director item: directors.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-            FilmRepository films = new FilmRepository(conn);
-            for (Film item: films.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-            GenreRepository genres = new GenreRepository(conn);
-            for (Genre item: genres.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-            OrderRepository orders = new OrderRepository(conn);
-            for (Order item: orders.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-            PlaceRepository places = new PlaceRepository(conn);
-            for (Place item: places.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-            RoleRepository roles = new RoleRepository(conn);
-            for (Role item: roles.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-            SessionRepository sessions = new SessionRepository(conn);
-            for (Session item: sessions.getAll()) {
-                sb.append(item + "\n");
-            }
-            sb.append(" * * * * * \n");
-
-            UserRepository users = new UserRepository(conn);
-            for (User item: users.getAll()) {
                 sb.append(item + "\n");
             }
             sb.append(" * * * * * \n");
@@ -87,14 +51,54 @@ public class TestController extends HttpServlet {
             }
             sb.append(" * * * * * \n");
 
+            FilmRepository films = new FilmRepository(conn);
+            for (Film item: films.getAll()) {
+                sb.append(item + "\n");
+            }
+            sb.append(" * * * * * \n");
+
+            GenreRepository genres = new GenreRepository(conn);
+            for (Genre item: genres.getAll()) {
+                sb.append(item + "\n");
+            }
+            sb.append(" * * * * * \n");
+
+            PlaceRepository places = new PlaceRepository(conn);
+            for (Place item: places.getAll()) {
+                sb.append(item + "\n");
+            }
+            sb.append(" * * * * * \n");
+
+            RoleRepository roles = new RoleRepository(conn);
+            for (Role item: roles.getAll()) {
+                sb.append(item + "\n");
+            }
+            sb.append(" * * * * * \n");
+
+            SessionRepository sessions = new SessionRepository(conn);
+            for (Session item: sessions.getAll()) {
+                sb.append(item + "\n");
+            }
+            sb.append(" * * * * * \n");
+
+            SoldPlaceRepository soldPlaces = new SoldPlaceRepository(conn);
+            for (SoldPlace item: soldPlaces.getAll()) {
+                sb.append(item + "\n");
+            }
+            sb.append(" * * * * * \n");
+
             TheaterRepository theaters = new TheaterRepository(conn);
             for (Theater item: theaters.getAll()) {
                 sb.append(item + "\n");
             }
             sb.append(" * * * * * \n");
 
-
+            UserRepository users = new UserRepository(conn);
+            for (User item: users.getAll()) {
+                sb.append(item + "\n");
+            }
             sb.append(" * * * * * \n");
+
 
 //            Statement st = conn.createStatement();
 

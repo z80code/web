@@ -1,130 +1,48 @@
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Document</title>
-		<link rel="stylesheet" type="text/css" href="styles/styles.css">
-		<script src="js/cinema.js"></script>
-		<meta name=viewport content="width=device-width, initial-scale=1">
-	</head>
-	<body>
-		<div class="container">
-			<div class="container_left">
-				<div class="container_right">
-					<!-- header -->
-					<header id="header">
-						<h3>...world of dreams...</h3>		
-						<img src="images/header_bg.png" alt="">
-					</header>
-					<!-- /header -->
-					<!-- menu -->			
-					<nav>
-						<ul>
-							<li><a href="#">films</a></li>
-							<li><a href="#">today</a></li>
-							<li><a href="#">tomorrow</a></li>
-							<li><a href="#">weak</a></li>
-<!-- 							<li class="dropdown">
-								<a  href="" class="dropbtn">genres</a>
-								<div class="dropdown-content"> 
-									<a href="">Absurdist</a>
-									<a href="">Action</a>
-									<a href="">Adventure</a>
-									<a href="">Animation</a>
-								</div>
-							</li> -->
-						<!-- 	<li><a href="#">find</a></li> -->
-						</ul>
-					</nav>
-					<!-- /menu -->	
-					<!-- main -->
-					<main>
-					<!--
-						<div class="menu_right">
-							<ul>
-								<li><a href="">Monday</a>
-									<ul>
-										<li><a href="">14:00 movie1</a></li>
-										<li><a href="">16:00 movie2</a></li>
-										<li><a href="">18:00 movie3</a></li>
-										<li><a href="">20:00 movie4</a></li>
-										<li><a href="">22:00 movie5</a></li>
-									</ul>
-								</li>
-								<li><a href="">Tuesday</a></li>
-								<li><a href="">Wednesday</a></li>
-								<li><a href="">Thursday</a></li>
-								<li><a href="">Friday</a></li>
-								<li><a href="">Saturday</a></li>
-								<li><a href="">Sunday</a></li>
-							</ul>				
-						</div> -->
-						<div class="film_description">
-							<div class="description_header">
-								<div class="description_title">
-									Title of the film
-								</div>
-								<div class="description_release">
-									2017
-								</div>	
-								<div class="description_director">
-									director name
-								</div>	
-							</div>
-							<div class="description_body">
-								<div class="description_image">
-									<img src="images/velikaya-stena.jpg" alt="">
-								</div>
-								<div class="description_context">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-								</div>
-							</div>
-							<div class="description_footer">
-								<div class="description_day">
-									<a href="">
-										<div class="description_day_date">3.02.2017</div>
-										<div class="description_day_weakday">weakday</div>
-									</a>
-								</div>
-								<div class="description_day">
-									<div class="description_day_date">4.02.2017</div>
-									<div class="description_day_weakday">weakday</div>
-								</div>	
-								<div class="description_day">
-									<div class="description_day_date">5.02.2017</div>
-									<div class="description_day_weakday">weakday</div>
-								</div>
-								<div class="description_day">
-									<div class="description_day_date">6.02.2017</div>
-									<div class="description_day_weakday">weakday</div>
-								</div>	
-								<div class="description_day">
-									<div class="description_day_date">7.02.2017</div>
-									<div class="description_day_weakday">weakday</div>
-								</div>
-								<div class="description_day">
-									<div>
-										<div class="description_day_date">8.02.2017</div>
-										<div class="description_day_weakday">weakday</div>
-									</div>
-								</div>
-								<div class="description_day">
-									<div class="description_day_date">9.02.2017</div>
-									<div class="description_day_weakday">weakday</div>
-								</div>	
-							</div>
-						</div>				
-					</main>
-					<!-- /main -->
-					<!-- footer -->
-					<footer>
-						<div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinemas of Gomel</title>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <script src="js/cinema.js"></script>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body onload="cinema.renderFilmsContent()">
+<div class="container">
+    <div class="container_left">
+        <div class="container_right">
+            <div class="container_main">
+                <!-- header -->
+                <header id="header">
+                    <h3>...world of dreams...</h3>
+                    <img src="images/header_bg.png" alt="">
+                </header>
+                <!-- /header -->
+                <!-- menu -->
+                <nav>
+                    <ul>
+                        <li><a href="#">films</a></li>
+                        <li><a href="#">today</a></li>
+                        <li><a href="#">tomorrow</a></li>
+                        <li><a href="#">weak</a></li>
+                    </ul>
+                </nav>
+                <!-- /menu -->
+                <!-- main -->
+                <main>
+                    <div id="films"></div>
+                </main>
+                <!-- /main -->
+                <!-- footer -->
+                <footer>
+                    <div>
+                    </div>
+                </footer>
+                <!-- /footer -->
+            </div>
 
-						</div>
-					</footer>
-					<!-- /footer -->
-				</div>
-			</div>
-		</div>
-	</body>
-	</html>
+        </div>
+    </div>
+</div>
+</body>
+</html>

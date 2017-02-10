@@ -12,9 +12,9 @@ public class PlaceRepository extends AbstractRepository<Place> {
 
     private final static String SELECT_ALL = "select * from places";
     private final static String SELECT_BY_ID = "select * from places where places.id=?";
-    private final static String SELECT_BY_ROW_SEAT_SOLD_SESSION = "select * from places where places.row=? and places.seat=? and places.sold=? and places.sessionId=? and places.theaterId=?";
+    private final static String SELECT_BY_ROW_SECTION_SEAT_THEATER = "select * from places where places.row=? and  places.section=? and places.seat=? and places.theaterId=?";
     private final static String DELETE_BY_ID = "delete from places where places.id=?";
-    private final static String ADD_PLACE = "insert into places(row, seat, status, sold, sessionId, costMultiplier, theaterId) values(?,?,?,?,?,?,?)";
+    private final static String ADD_PLACE = "insert into places(row, section, seat, theaterId, cost) values(?,?,?,?,?)";
 
     public PlaceRepository(Connection conn) {
         super(conn);
@@ -26,26 +26,24 @@ public class PlaceRepository extends AbstractRepository<Place> {
         return rs.next() ? new Place(rs) : null;
     }
 
-    public Place getByUserSession(int row, int seat, String sold, int session, int theater) throws SQLException {
-        ResultSet rs = prepareRequest(SELECT_BY_ROW_SEAT_SOLD_SESSION, row, seat, sold, session, theater);
+    public Place getByUserSession(String row, String section, int seat, int theater, int cost) throws SQLException {
+        ResultSet rs = prepareRequest(SELECT_BY_ROW_SECTION_SEAT_THEATER, row, section, seat, theater, cost);
         return rs.next() ? new Place(rs) : null;
     }
 
     @Override
     public Place add(Place place) throws SQLException {
-        Place placeExist = getByUserSession(place.getRow(), place.getSeat(), place.getSold(), place.getSessionId(), place.getTheaterId());
+        Place placeExist = getByUserSession(place.getRow(), place.getSection(), place.getSeat(), place.getTheaterId(), place.getCost());
         if (placeExist != null) return null;
 
         prepareUpdate(ADD_PLACE,
                 place.getRow(),
+                place.getSection(),
                 place.getSeat(),
-                place.getStatus(),
-                place.getSold(),
-                place.getSessionId(),
-                place.getCostMultiplier(),
-                place.getTheaterId());
+                place.getTheaterId(),
+                place.getCost());
 
-        return getByUserSession(place.getRow(), place.getSeat(), place.getSold(), place.getSessionId(), place.getTheaterId());
+        return getByUserSession(place.getRow(), place.getSection(), place.getSeat(), place.getTheaterId(), place.getCost());
     }
 
     @Override

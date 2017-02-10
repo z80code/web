@@ -9,7 +9,6 @@ public class Session {
     private int id;
     private int filmId;
     private Date dateTime;
-    private int cost;
     private int theaterId;
 
     public Session() {
@@ -19,19 +18,17 @@ public class Session {
         this(resultSet.getInt(1),
              resultSet.getInt(2),
              resultSet.getDate(3),
-             resultSet.getInt(4),
-             resultSet.getInt(5));
+             resultSet.getInt(4));
     }
 
-    public Session(int filmId, Date dateTime, int cost, int theaterId) {
-        this(0, filmId, dateTime, cost, theaterId);
+    public Session(int filmId, Date dateTime,int theaterId) {
+        this(0, filmId, dateTime, theaterId);
     }
 
-    public Session(int id, int filmId, Date dateTime, int cost, int theaterId) {
+    public Session(int id, int filmId, Date dateTime, int theaterId) {
         this.id = id;
         this.filmId = filmId;
         this.dateTime = dateTime;
-        this.cost = cost;
         this.theaterId = theaterId;
     }
 
@@ -59,14 +56,6 @@ public class Session {
         this.dateTime = dateTime;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     public int getTheaterId() {
         return theaterId;
     }
@@ -81,7 +70,6 @@ public class Session {
                 "id=" + id +
                 ", filmId=" + filmId +
                 ", dateTime=" + dateTime +
-                ", cost=" + cost +
                 ", theaterId=" + theaterId +
                 '}';
     }

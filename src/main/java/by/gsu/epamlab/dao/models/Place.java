@@ -5,40 +5,34 @@ import java.sql.SQLException;
 
 public class Place {
     private int id;
-    private int row;
+    private String row;
+    private String section;
     private int seat;
-    private String status;
-    private String sold;
-    private int sessionId;
-    private double costMultiplier;
     private int theaterId;
+    private int cost;
 
     public Place() {
     }
     public Place(ResultSet resultSet) throws SQLException {
         this(resultSet.getInt(1),
-                resultSet.getInt(2),
-                resultSet.getInt(3),
-                resultSet.getString(4),
-                resultSet.getString(5),
-                resultSet.getInt(6),
-                resultSet.getDouble(7),
-                resultSet.getInt(8));
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getInt(4),
+                resultSet.getInt(5),
+                resultSet.getInt(6));
     }
 
-    public Place(int row, int seat, String status, String sold, int sessionId, double costMultiplier, int theaterId) {
-        this(0, row,  seat,  status,  sold,  sessionId, costMultiplier, theaterId);
+    public Place(String row, String section, int seat, int theaterId, int cost) {
+        this(0, row, section, seat, theaterId, cost);
     }
 
-    public Place(int id, int row, int seat, String status, String sold, int sessionId, double costMultiplier, int theaterId) {
+    public Place(int id, String row, String section, int seat, int theaterId, int cost) {
         this.id = id;
         this.row = row;
+        this.section = section;
         this.seat = seat;
-        this.status = status;
-        this.sold = sold;
-        this.sessionId = sessionId;
-        this.costMultiplier =costMultiplier;
         this.theaterId = theaterId;
+        this.cost = cost;
     }
 
     public int getId() {
@@ -49,12 +43,20 @@ public class Place {
         this.id = id;
     }
 
-    public int getRow() {
+    public String getRow() {
         return row;
     }
 
-    public void setRow(int row) {
+    public void setRow(String row) {
         this.row = row;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 
     public int getSeat() {
@@ -65,30 +67,6 @@ public class Place {
         this.seat = seat;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getSold() {
-        return sold;
-    }
-
-    public void setSold(String sold) {
-        this.sold = sold;
-    }
-
-    public int getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
-    }
-
     public int getTheaterId() {
         return theaterId;
     }
@@ -97,25 +75,23 @@ public class Place {
         this.theaterId = theaterId;
     }
 
-    public double getCostMultiplier() {
-        return costMultiplier;
+    public int getCost() {
+        return cost;
     }
 
-    public void setCostMultiplier(double costMultiplier) {
-        this.costMultiplier = costMultiplier;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     @Override
     public String toString() {
         return "Place{" +
                 "id=" + id +
-                ", row=" + row +
+                ", row='" + row + '\'' +
+                ", section='" + section + '\'' +
                 ", seat=" + seat +
-                ", status='" + status + '\'' +
-                ", sold='" + sold + '\'' +
-                ", sessionId=" + sessionId +
-                ", costMultiplier=" + costMultiplier +
                 ", theaterId=" + theaterId +
+                ", cost=" + cost +
                 '}';
     }
 }
