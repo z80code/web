@@ -2,9 +2,145 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Places receiver</title>
+	<title>Cinemas of Gomel</title>
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<script src="js/cinema.js"></script>
+	<meta name=viewport content="width=device-width, initial-scale=1">
 </head>
-<body>
-	<h1>Not Implemented yeat!!!</h1>
+<body onload="">
+	<div class="container">
+		<div class="container_left">
+			<div class="container_right">
+				<div class="container_main">
+					<!-- header -->
+					<header id="header">
+						<div>...world of dreams...</div>
+						<img src="images/header_bg.png" alt="">
+					</header>
+					<!-- /header -->
+					<!-- menu -->
+					<nav>
+						<ul>
+							<li><a href="#">films</a></li>
+							<li><a href="#">today</a></li>
+							<li><a href="#">tomorrow</a></li>
+							<li><a href="#">weak</a></li>
+						</ul>
+					</nav>
+					<!-- /menu -->
+					<!-- main -->
+					<main>
+						<div id="films">
+							<div class="panel">
+								<div class="plan">
+									<div id="plan" style="overflow: hidden; display: inline-block; float: left;" >
+										<img src="theatres/plans/october_plans.png" alt="" style="margin: 10px; background: #CECECE; display: inline-block; float: left;">
+									</div>
+								</div>
+
+
+								<div style="color: black">
+									<h1>Not Implemented yeat!!!</h1>		
+									<span>Hello</span>
+								</div>
+							</div>
+							<script>		
+								/*seat creater*/
+								function createSeat(planElement, seatData, state){
+									var seat = document.createElement("div");
+									planElement.appendChild(seat);
+
+									seat.setAttribute("class", "seat_status_" +seatData.state);
+									seat.setAttribute("id", seatData.id);						
+									seat.setAttribute("onclick", "seatClick(this.id);");	
+									seat.setAttribute("style", seat.style + "; left: " + seatData.X + "px; top: "+ seatData.Y + "px;");
+								};
+								/* end seat creater */
+
+								function SelectPlaceHolder(){
+									var selectedPlaces = [];
+									var next =0;
+									this.add = function(place){
+										selectedPlaces.push(place);
+									}
+
+									this.getArray = function(){
+										return selectedPlaces;
+									}
+
+									this.contains = function(place){
+										// for (var i = 0; i < selectedPlaces.length; i++) {
+										// 	if(selectedPlaces[i].id==place.id) return true;
+										// }
+										return ~selectedPlaces.indexOf(place);
+									}
+
+									this.delete = function(place){
+										selectedPlaces.splice(selectedPlaces.indexOf(place), 1);
+									}
+
+								}
+
+								var selectPlases = new SelectPlaceHolder();
+
+								function seatClick(id){
+									var	item = theaterPlaces.find((function(item) {return item.id==id;}));
+
+									var state = "free";		
+																
+									if(item.state!="free") return;
+
+									if (selectPlases.contains(item)){
+										selectPlases.delete(item)
+										console.log("delete: "+ item.id);	
+									} else {
+										selectPlases.add(item);
+										state = "selected";
+										console.log("added: " + item.id);					
+									}
+
+									document.getElementById(item.id).setAttribute("class", "seat_status_" + state);		
+									
+									console.log(JSON.stringify(selectPlases.getArray()));
+								}
+
+								var elem = document.getElementById("plan");
+
+								// JSON generator 
+								var theaterPlacesJSON = "[ ";
+								for (var j = 0; j < 21; j++) {
+									if (j==8 || j==7) continue;
+									for (var i = 0; i < 18; i++) {
+										var state = "free";
+										if (j ==3)  state = "solded";
+										if (j ==5)  state = "recerved";										
+										// var obj = {id: (j*18+i+1), X:i*25 + 70, Y: 13+65 +j*25, state: state};
+										theaterPlacesJSON +='{"id": '+(j*18+i+1)+
+										', "X": '+(i*25 + 70)+
+										', "Y": '+(13+65 +j*25)+
+										', "state": "'+state+'"}';
+										theaterPlacesJSON +=	(i==17 && j==20)?'':', ';		
+									}
+								}
+								theaterPlacesJSON +=" ]";			
+								// end of JSON generator 
+									var theaterPlaces = JSON.parse(theaterPlacesJSON);
+									theaterPlaces.forEach( function(obj) {createSeat(elem, obj);})
+
+						</script>
+					</div>
+				</main>
+				<!-- /main -->
+				<!-- footer -->
+				<footer>
+					<div>
+					</div>
+				</footer>
+				<!-- /footer -->
+			</div>
+
+		</div>
+	</div>
+</div>
 </body>
 </html>

@@ -111,17 +111,20 @@ img {
 }
 
 header img {
+    padding: 0;
+}
+
+header>img {
     border-radius: 20px;
     width: 100%;
 }
 
-header > h3 {
+header {
     color: #fff;
     font-style: italic;
     text-align: right;
-    padding-top: 5px;
-    padding-right: 20px;
     font-family: 'Lobster', cursive;
+    padding: 0 5px;
 }
 
 body {
@@ -131,10 +134,11 @@ body {
 nav {
     text-transform: uppercase;
     font-family: Arial, serif;
-    font-weight: 100;
+    font-weight: normal;
 }
 
 nav > ul {
+    margin-bottom: 5px;
     list-style-type: none;
     overflow: hidden;
     background-color: #000;
@@ -202,98 +206,89 @@ nav > ul > li.dropdown {
     background: url('images/container_right.png') repeat-y right;
 }
 
-.film_description {
-    display: block;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 16px;
-    min-width: 100px;
+.panel {
     margin: 0px 5px 20px;
     overflow: hidden;
     background: #E5E5E5;
     border-radius: 15px;
 }
 
-.description_header {
-    display: block;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 16px;
-    margin: 0; 
-    overflow: hidden;
+.panel_header {
     padding: 10px;
     background: #FFF;
 }
 
-.description_title {
+.panel_title {
     display: inline;
     float: left;
-    font-weight: 700;
+    font-weight: bold;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 24px;
 }
 
-.description_release  {
+.panel_release  {
+    padding-left: 20px;
     display: inline;
     float: right;
-    font-weight: 700;
+    font-weight: bold;
     font-size: 24px;
 }
 
-.description_subtitle{
+.panel_subtitle{
 clear: both;
-font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.description_subtitle_caption{
-display: inline;
-padding-left: 5px;
-clear: both;
+.panel_subtitle_caption{
+width: 50px;
+display: inline-block;
 font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 font-size: 14px;
 }
 
-.description_subtitle_name{
-    display: inline;
- padding-left: 5px;
+.panel_subtitle_text{
+display: inline;
+padding-left: 5px;
 font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 font-size: 16px;
 }
 
-.description_body{
+.panel_body{
     clear: both;
 }
-.description_image {
+.panel_image {
+    position: relative;
     float: left;
-    padding: 5px 10px;
+    margin: 10px;
 }
-.description_context>h2{
+.panel_text>h2{
+    padding: 10px 0;
     font-size: 22px;
-    padding: 5px 0;
     font-weight: 700;
 }
 
-.description_context {
+.panel_text {
+    padding: 10px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     min-width: 150px;
     font-size: 16px;
     overflow: hidden;
-    padding: 5px;
     text-indent: 20px;
 }
 
-.description_footer {
+.panel_footer {
     clear: both;
     overflow: hidden;
     background: #999;
 }
 
-.description_theater{
+.theater_sessions{
     display: table;
     width: 100%;
     background: #222;
     margin: 5px 0;   
 }
 
-.description_theater_name{
+.theater_name{
     display: table-row;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 14px;
@@ -303,11 +298,11 @@ font-size: 16px;
     padding: 2px 0;
 }
 
-.days_block{
+.sessions_items_block{
     text-align: center;
 }
 
-.description_day {
+.sessions_item {
     display: inline-block;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 19px;
@@ -322,18 +317,18 @@ font-size: 16px;
     border-left: solid #B6B6B6 1px; 
 }
 
-.description_day:hover {
+.sessions_item:hover {
     background: #888;
     cursor: pointer;
 }
 
-.description_day_weekday{
+.session_weekday{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 14px;
     color: #FFF2BD;
 }
 
-.description_day_time{
+.session_time{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 20px;
     color: #FFF44A;
@@ -347,6 +342,55 @@ footer {
     clear: both;
 }
 
+.plan{
+    position: relative;
+    height: 0px; 
+    width: 0px;
+}
+
+.seat_status_free{
+    position: absolute;
+    height: 15px; 
+    width: 18px;
+    background: green;
+    border: solid transparent 2px;
+}
+
+.seat_status_recerved{
+    border: solid transparent 2px;
+    position: absolute;
+    height: 15px; 
+    width: 18px;
+    background: yellow;
+}
+
+.seat_status_solded{
+    border: solid transparent 2px;
+    position: absolute;
+    height: 15px; 
+    width: 18px;
+    background: black;
+}
+
+.seat_status_selected{
+    border: solid transparent 2px;
+    position: absolute;
+    height: 15px; 
+    width: 18px;
+    background: red;
+}
+
+.seat_status_solded:hover, .seat_status_recerved:hover{
+    border: solid red 2px;
+    cursor: no-drop;
+}
+.seat_status_free:hover{
+    
+    border: solid red 2px;
+    cursor: pointer;
+}
+
+
 @media screen and (max-width: 340px) {
     nav > ul > li {
         float: none;
@@ -358,9 +402,14 @@ footer {
         width: 100%;
         padding: 10px 5px;
     }
-    .description_day {
+    .session_day {
         padding: 0;
         width: 100%;
         font-size: 24px;
     }
+.panel_image {
+clear: both;
+    width: 100%;
+    margin: 10px auto;
+}
 }

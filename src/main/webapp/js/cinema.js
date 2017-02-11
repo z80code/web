@@ -160,6 +160,44 @@ var cinema;
         }
     ];
 
+        function Cookie() {
+        this.setCookie = function (cname, cvalue, exdays) {
+            var d = new Date();
+            if(exdays!=undefined) {
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                return;
+            }
+            document.cookie = cname + "=" + cvalue;
+        };
+
+        this.getCookie = function (cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        };
+
+        this.checkCookie = function (cname) {
+            var checkedCookie = this.getCookie(cname);
+            return checkedCookie != "";
+        };
+
+        this.delete = function (cname) {
+            document.cookie = cname + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        };
+    }
+
     function Cinema() {
 
         var api = {
@@ -173,8 +211,16 @@ var cinema;
             POST: "post"
         };
 
+       this.getCookieManager = function () {
+           return new Cookie();
+       }
+        
+        
         this.selectSession = function (sessionId) {
-            window.location = "receive.html?session="+sessionId;
+            var cookies = new Cookie();
+
+            cookies.setCookie("session", sessionId);
+            window.location = "receive.html";
         };
 
         function Element(tag, attr, classAttr, text) {
@@ -220,24 +266,24 @@ var cinema;
         function FilmView() {
 
             var classAttr = {
-                MAIN: "film_description",
-                HEADER: "description_header",
-                TITLE: "description_title",
-                RELEASE: "description_release",
-                SUB_TITLE: "description_subtitle",
-                SUB_TITLE_CAPTION: "description_subtitle_caption",
-                SUB_TITLE_NAME: "description_subtitle_name",
-                BODY: "description_body",
-                IMAGE: "description_image",
-                CONTEXT: "description_context",
-                FOOTER: "description_footer",
-                THEATER: "description_theater",
-                THEATER_NAME: "description_theater_name",
-                DAYS_BLOCK: "days_block",
-                DAY: "description_day",
-                DAY_WEEKDAY: "description_day_weekday",
-                DAY_DATE: "description_day_date",
-                DAY_TIME: "description_day_time"
+                PANEL: "panel",
+                HEADER: "panel_header",
+                TITLE: "panel_title",
+                RELEASE: "panel_release",
+                SUBTITLE: "panel_subtitle",
+                SUB_CAPTION: "panel_subtitle_caption",
+                SUB_TEXT: "panel_subtitle_text",
+                BODY: "panel_body",
+                IMAGE: "panel_image",
+                CONTEXT: "panel_text",
+                FOOTER: "panel_footer",
+                THEATER_SESSIONS: "theater_sessions",
+                THEATER_NAME: "theater_name",
+                SESSIONS_ITEMS_BLOCK: "sessions_items_block",
+                SESSIONS_ITEM: "sessions_item",
+                SESSION_WEEKDAY: "session_weekday",
+                SESSION_DATE: "session_date",
+                SESSION_TIME: "session_time"
 
             };
             var attr = {
@@ -252,24 +298,24 @@ var cinema;
                 DIV: "div",
                 IMG: "img",
                 P: "p",
-                H2: "h2",
+                H2: "h2"
             };
 
 
 
 
             this.getByFilm = function (film) {
-                return new Element(tag.DIV, attr.CLASS, classAttr.MAIN)
+                return new Element(tag.DIV, attr.CLASS, classAttr.PANEL)
                     .addChild(new Element(tag.DIV, attr.CLASS, classAttr.HEADER)
                         .addChild(new Element(tag.DIV, attr.CLASS, classAttr.TITLE, film.title))
                         .addChild(new Element(tag.DIV, attr.CLASS, classAttr.RELEASE, film.year))
-                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE)
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE_CAPTION, 'Director:'))
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE_NAME, film.director.name))
+                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUBTITLE)
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_CAPTION, 'Director:'))
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TEXT, film.director.name))
                         )
-                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE)
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE_CAPTION, 'Casts:'))
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE_NAME, function () {
+                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUBTITLE)
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_CAPTION, 'Casts:'))
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TEXT, function () {
                                 var result = "";
                                 film.actors.forEach(function (nm) {
                                     result += nm.name + ", "
@@ -277,9 +323,9 @@ var cinema;
                                 return result.replace(/, $/, '');
                             }()))
                         )
-                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE)
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE_CAPTION, 'Genres:'))
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TITLE_NAME, function () {
+                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUBTITLE)
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_CAPTION, 'Genres:'))
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TEXT, function () {
                                 var result = "";
                                 film.genres.forEach(function (nm) {
                                     result += nm.name + ", "
@@ -296,10 +342,10 @@ var cinema;
                             .addChild(new Element(tag.P, undefined, undefined, film.description))
                         )
                         .addChild(new Element(tag.DIV, attr.CLASS, classAttr.FOOTER)
-                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.THEATER)
+                            .addChild(new Element(tag.DIV, attr.CLASS, classAttr.THEATER_SESSIONS)
                                 .addChild(new Element(tag.DIV, attr.CLASS, classAttr.THEATER_NAME, 'October'))
                                 .addChild(function () {
-                                        var sessionView = new Element(tag.DIV, attr.CLASS, classAttr.DAYS_BLOCK);
+                                        var sessionView = new Element(tag.DIV, attr.CLASS, classAttr.SESSIONS_ITEMS_BLOCK);
                                         var sessions = [
                                             {
                                                 id: 1,
@@ -345,13 +391,13 @@ var cinema;
                                             }
                                         ];
                                         sessions.forEach(function (session) {
-                                                sessionView.addChild(new Element(tag.DIV, attr.CLASS, classAttr.DAY).setAttr(attr.ID, session.id).setAttr(attr.ONCLICK, "cinema.selectSession(this.id)")
-                                                    .addChild(new Element(tag.DIV, attr.CLASS, classAttr.DAY_WEEKDAY, session.dateTime.toLocaleString("en-US", {weekday: 'long'})))
-                                                    .addChild(new Element(tag.DIV, attr.CLASS, classAttr.DAY_DATE, session.dateTime.toLocaleString("en-US", {
+                                                sessionView.addChild(new Element(tag.DIV, attr.CLASS, classAttr.SESSIONS_ITEM).setAttr(attr.ID, session.id).setAttr(attr.ONCLICK, "cinema.selectSession(this.id)")
+                                                    .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SESSION_WEEKDAY, session.dateTime.toLocaleString("en-US", {weekday: 'long'})))
+                                                    .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SESSION_DATE, session.dateTime.toLocaleString("en-US", {
                                                         month: 'long',
                                                         day: 'numeric'
                                                     })))
-                                                    .addChild(new Element(tag.DIV, attr.CLASS, classAttr.DAY_TIME, session.dateTime.toLocaleString("en-US", {
+                                                    .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SESSION_TIME, session.dateTime.toLocaleString("en-US", {
                                                         hour: 'numeric',
                                                         minute: 'numeric'
                                                     }))))
@@ -373,7 +419,7 @@ var cinema;
             films.forEach(function (fm) {
                 filmHtml += new FilmView().getByFilm(fm);
             });
-            document.getElementById("films").innerHTML = filmHtml;
+            document.getElementById("context").innerHTML = filmHtml;
         }
 
         function getFilms() {
