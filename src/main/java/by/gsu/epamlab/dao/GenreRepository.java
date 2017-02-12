@@ -1,10 +1,8 @@
 package by.gsu.epamlab.dao;
 
-import by.gsu.epamlab.dao.models.Film;
 import by.gsu.epamlab.dao.models.Genre;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ public class GenreRepository extends AbstractRepository<Genre> {
     private final static String SELECT_ALL = "select * from genres";
     private final static String SELECT_BY_ID = "select * from genres where genres.id=?";
     private final static String SELECT_BY_NAME = "select * from genres where genres.name=?";
-    private final static String DELETE_BY_ID = "delete from genres where genres.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from genres where genres.id=?";
     private final static String ADD_USER = "insert into genres(name, info) values(?,?)";
 
     public GenreRepository(Connection conn) {

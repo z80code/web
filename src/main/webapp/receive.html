@@ -38,77 +38,116 @@
 									</div>
 								</div>
 
-
-								<div style="color: black">
-									<h1>Not Implemented yeat!!!</h1>		
-									<span>Hello</span>
+								<div style="color: black; padding: 10px; background: white ; float: left; overflow: hidden; margin: 10px; border-radius: 5px; min-width: 210px;">
+									<h1>Soon...</h1>	
+									<span style='font-family: "Arial Narrow", Arial, sans-serif; font-weight: bold; font-size: 20px;'>Your choose</span><br>
+									<span style='font-family: "Arial Narrow", Arial, sans-serif; font-weight: bold; font-size: 20px;'>Seats:</span><br>
+									<span id="list_of_seats" style='font-family: "Arial Narrow", Arial, sans-serif; font-weight: bold; font-size: 16px; float: right;'>Not selected.</span><br>	
+									<span class="panel_title"><hr>Total cost: </span><br>
+									<span id="total_cost" class="panel_title" style=" float: right;" >BYR 0.00</span>																										
 								</div>
 							</div>
+
 							<script>		
-								/*seat creater*/
+								/*seat create*/
 								function createSeat(planElement, seatData, state){
 									var seat = document.createElement("div");
+									var popUpInfo = document.createElement("div");
+									popUpInfo.setAttribute("class", "popup_info");
+									popUpInfo.innerHTML = "id: " +seatData.id+ "</br>"+
+									"Row: "+ (seatData.row||"0") +" "+
+									"Seat: "+ (seatData.seat||"0") +"</br>"+
+									"Cost: "+ (seatData.cost||"0") + " BYR" ;
+									seat.appendChild(popUpInfo);
 									planElement.appendChild(seat);
-
 									seat.setAttribute("class", "seat_status_" +seatData.state);
 									seat.setAttribute("id", seatData.id);						
 									seat.setAttribute("onclick", "seatClick(this.id);");	
 									seat.setAttribute("style", seat.style + "; left: " + seatData.X + "px; top: "+ seatData.Y + "px;");
-								};
-								/* end seat creater */
+								}
+								/* end */
 
+								/* my collection for holding selected seats */
 								function SelectPlaceHolder(){
 									var selectedPlaces = [];
 									var next =0;
+
+									this.getLength = function () {
+										return selectedPlaces.length;
+									} 
+
 									this.add = function(place){
 										selectedPlaces.push(place);
-									}
+									};
 
 									this.getArray = function(){
 										return selectedPlaces;
-									}
+									};
 
 									this.contains = function(place){
 										// for (var i = 0; i < selectedPlaces.length; i++) {
 										// 	if(selectedPlaces[i].id==place.id) return true;
 										// }
 										return ~selectedPlaces.indexOf(place);
-									}
+									};
 
-									this.delete = function(place){
+									this.deletePlace = function(place){
 										selectedPlaces.splice(selectedPlaces.indexOf(place), 1);
 									}
-
 								}
+								/* end */
 
-								var selectPlases = new SelectPlaceHolder();
+								/* THIS IS HARD CODING :) */								
+								var selectPlaces = new SelectPlaceHolder();
 
+								// event seat click 
 								function seatClick(id){
 									var	item = theaterPlaces.find((function(item) {return item.id==id;}));
 
 									var state = "free";		
-																
+
 									if(item.state!="free") return;
 
-									if (selectPlases.contains(item)){
-										selectPlases.delete(item)
-										console.log("delete: "+ item.id);	
+									if (selectPlaces.contains(item)){
+										selectPlaces.deletePlace(item);
 									} else {
-										selectPlases.add(item);
-										state = "selected";
-										console.log("added: " + item.id);					
+										selectPlaces.add(item);
+										state = "selected";				
 									}
 
 									document.getElementById(item.id).setAttribute("class", "seat_status_" + state);		
 									
-									console.log(JSON.stringify(selectPlases.getArray()));
-								}
+									 var seatsView = document.getElementById("list_of_seats");
+									 var total_cost = document.getElementById("total_cost");
+									// total cost calc
+									console.log(selectPlaces.getLength());
+									if(selectPlaces.getLength()>0){
+												seatsView.innerHTML = 		"";								
+										selectPlaces.getArray().forEach(
+											function (seat) {
+												seatsView.innerHTML += 
+												"<p style='display: block;'>"+ "row "+ +seat.row + ", seat: "+ seat.seat +" . . . byr: "+seat.cost.toFixed(2)
+												;
+											});
 
-								var elem = document.getElementById("plan");
+									total_cost.innerHTML = "";
+									var summ= 0;
+										selectPlaces.getArray().forEach(
+											function (seat) {
+												summ+= +seat.cost;
+											});										
+									total_cost.innerHTML = "BYR " + summ.toFixed(2);
+									} else {
+										seatsView.innerHTML = "Not selected.";
+										total_cost.innerHTML = "BYR 0.00";
+									}
+
+								}
+								// end
 
 								// JSON generator 
 								var theaterPlacesJSON = "[ ";
-								for (var j = 0; j < 21; j++) {
+								for (var j = 0; j < 21;	j++) {
 									if (j==8 || j==7) continue;
 									for (var i = 0; i < 18; i++) {
 										var state = "free";
@@ -118,29 +157,41 @@
 										theaterPlacesJSON +='{"id": '+(j*18+i+1)+
 										', "X": '+(i*25 + 70)+
 										', "Y": '+(13+65 +j*25)+
-										', "state": "'+state+'"}';
+										', "state": "'+state+'"' +
+										', "row": '+ (j+1) +
+										', "seat": '+ (i+1) +
+										', "cost": '+ 8.50 +									
+										'}';
 										theaterPlacesJSON +=	(i==17 && j==20)?'':', ';		
 									}
 								}
 								theaterPlacesJSON +=" ]";			
-								// end of JSON generator 
+								// end
+
+									// here must be ajax, to get theaterPlaces from server
+									var elem = document.getElementById("plan");								
 									var theaterPlaces = JSON.parse(theaterPlacesJSON);
-									theaterPlaces.forEach( function(obj) {createSeat(elem, obj);})
 
-						</script>
+									// here adding seats by data in the theaterPlaces						
+									theaterPlaces.forEach( function(obj) {
+										// render seat										
+										createSeat(elem, obj);
+									})
+
+								</script>
+							</div>
+						</main>
+						<!-- /main -->
+						<!-- footer -->
+						<footer>
+							<div>
+							</div>
+						</footer>
+						<!-- /footer -->
 					</div>
-				</main>
-				<!-- /main -->
-				<!-- footer -->
-				<footer>
-					<div>
-					</div>
-				</footer>
-				<!-- /footer -->
+
+				</div>
 			</div>
-
 		</div>
-	</div>
-</div>
-</body>
-</html>
+	</body>
+	</html>

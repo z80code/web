@@ -13,7 +13,7 @@ public class DirectorRepository extends AbstractRepository<Director> {
     private final static String SELECT_ALL = "select * from directors";
     private final static String SELECT_BY_ID = "select * from directors where directors.id=?";
     private final static String SELECT_BY_NAME = "select * from directors where directors.name=?";
-    private final static String DELETE_BY_ID = "delete from directors where directors.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from directors where directors.id=?";
     private final static String ADD_USER = "insert into directors(name, info) values(?,?)";
 
     public DirectorRepository(Connection conn) {

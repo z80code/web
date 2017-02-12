@@ -13,7 +13,7 @@ public class PlaceRepository extends AbstractRepository<Place> {
     private final static String SELECT_ALL = "select * from places";
     private final static String SELECT_BY_ID = "select * from places where places.id=?";
     private final static String SELECT_BY_ROW_SECTION_SEAT_THEATER = "select * from places where places.row=? and  places.section=? and places.seat=? and places.theaterId=?";
-    private final static String DELETE_BY_ID = "delete from places where places.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from places where places.id=?";
     private final static String ADD_PLACE = "insert into places(row, section, seat, theaterId, cost) values(?,?,?,?,?)";
 
     public PlaceRepository(Connection conn) {

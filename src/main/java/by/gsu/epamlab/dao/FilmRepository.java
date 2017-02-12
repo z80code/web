@@ -14,7 +14,7 @@ public class FilmRepository extends AbstractRepository<Film> {
     private final static String SELECT_ALL = "select * from films";
     private final static String SELECT_BY_ID = "select * from films where films.id=?";
     private final static String SELECT_BY_TITLE_RELEASE = "select * from films where films.title=? and films.release=?";
-    private final static String DELETE_BY_ID = "delete from films where films.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from films where films.id=?";
     private final static String ADD_USER = "insert into users(title, release, directorId, description, image) values(?,?,?,?,?)";
 
     public FilmRepository(Connection conn) {

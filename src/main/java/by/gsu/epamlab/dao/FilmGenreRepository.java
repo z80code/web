@@ -1,6 +1,5 @@
 package by.gsu.epamlab.dao;
 
-import by.gsu.epamlab.dao.models.Cast;
 import by.gsu.epamlab.dao.models.FilmGenre;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ public class FilmGenreRepository extends AbstractRepository<FilmGenre> {
     private final static String SELECT_ALL = "select * from filmGenres";
     private final static String SELECT_BY_ID = "select * from filmGenres where filmGenres.id=?";
     private final static String SELECT_BY_FILM_GENRE = "select * from filmGenres where filmGenres.filmId=? and filmGenres.genreId=?";
-    private final static String DELETE_BY_ID = "delete from filmGenres where filmGenres.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from filmGenres where filmGenres.id=?";
     private final static String ADD_CAST = "insert into filmGenres(filmId, genreId) values(?,?)";
 
     public FilmGenreRepository(Connection conn) {

@@ -1,6 +1,5 @@
 package by.gsu.epamlab.dao;
 
-import by.gsu.epamlab.dao.models.Genre;
 import by.gsu.epamlab.dao.models.Role;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ public class RoleRepository extends AbstractRepository<Role> {
     private final static String SELECT_ALL = "select * from roles";
     private final static String SELECT_BY_ID = "select * from roles where roles.id=?";
     private final static String SELECT_BY_NAME = "select * from roles where roles.name=?";
-    private final static String DELETE_BY_ID = "delete from roles where roles.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from roles where roles.id=?";
     private final static String ADD_USER = "insert into roles(name) values(?)";
 
     public RoleRepository(Connection conn) {

@@ -1,7 +1,6 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Theater;
-import by.gsu.epamlab.dao.models.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ public class TheaterRepository extends AbstractRepository<Theater> {
     private final static String SELECT_ALL = "select * from theaters";
     private final static String SELECT_BY_ID = "select * from theaters where theaters.id=?";
     private final static String SELECT_BY_NAME = "select * from theaters where theaters.name=?";
-    private final static String DELETE_BY_ID = "delete from theaters where theaters.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from theaters where theaters.id=?";
     private final static String ADD_USER = "insert into theaters(name, location, phone) values(?,?,?)";
 
     public TheaterRepository(Connection conn) {

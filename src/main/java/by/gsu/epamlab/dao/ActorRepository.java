@@ -2,7 +2,9 @@ package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Actor;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class ActorRepository extends AbstractRepository<Actor> {
     private final static String SELECT_ALL = "select * from actors";
     private final static String SELECT_BY_ID = "select * from actors where actors.id=?";
     private final static String SELECT_BY_NAME = "select * from actors where actors.name=?";
-    private final static String DELETE_BY_ID = "delete from actors where actors.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from actors where actors.id=?";
     private final static String ADD_USER = "insert into actors(name, info) values(?,?)";
 
     public ActorRepository(Connection conn) {

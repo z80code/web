@@ -13,7 +13,7 @@ public class CastRepository extends AbstractRepository<Cast> {
     private final static String SELECT_ALL = "select * from casts";
     private final static String SELECT_BY_ID = "select * from casts where casts.id=?";
     private final static String SELECT_BY_FILM_ACTOR = "select * from casts where casts.filmId=? and casts.actorId=?";
-    private final static String DELETE_BY_ID = "delete from casts where casts.id=?";
+    private final static String DELETE_BY_ID = "deletePlace from casts where casts.id=?";
     private final static String ADD_CAST = "insert into casts(filmId, actorId) values(?,?)";
 
     public CastRepository(Connection conn) {
