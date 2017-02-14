@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.SoldPlace;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +22,22 @@ public class SoldPlaceRepository extends AbstractRepository<SoldPlace> {
     }
 
     @Override
+    SoldPlace createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public SoldPlace getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new SoldPlace(rs) : null;
+    }
+
+    public List<SoldPlace> getByIds(Integer... ids) throws SQLException {
+        List<SoldPlace> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public SoldPlace getByUserSession(int user, int session) throws SQLException {

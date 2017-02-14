@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Role;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +22,22 @@ public class RoleRepository extends AbstractRepository<Role> {
     }
 
     @Override
+    Role createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Role getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Role(rs) : null;
+    }
+
+    public List<Role> getByIds(Integer... ids) throws SQLException {
+        List<Role> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public Role getByName(String name) throws SQLException {

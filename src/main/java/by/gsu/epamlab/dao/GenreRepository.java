@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Genre;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +22,22 @@ public class GenreRepository extends AbstractRepository<Genre> {
     }
 
     @Override
+    Genre createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Genre getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Genre(rs) : null;
+    }
+
+    public List<Genre> getByIds(Integer... ids) throws SQLException {
+        List<Genre> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public Genre getByName(String name) throws SQLException {

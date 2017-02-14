@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.FilmGenre;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ public class FilmGenreRepository extends AbstractRepository<FilmGenre> {
 
     private final static String SELECT_ALL = "select * from filmGenres";
     private final static String SELECT_BY_ID = "select * from filmGenres where filmGenres.id=?";
+    private final static String SELECT_BY_FILM_ID = "select * from filmGenres where filmGenres.filmId=?";
     private final static String SELECT_BY_FILM_GENRE = "select * from filmGenres where filmGenres.filmId=? and filmGenres.genreId=?";
     private final static String DELETE_BY_ID = "deletePlace from filmGenres where filmGenres.id=?";
     private final static String ADD_CAST = "insert into filmGenres(filmId, genreId) values(?,?)";
@@ -21,9 +23,32 @@ public class FilmGenreRepository extends AbstractRepository<FilmGenre> {
     }
 
     @Override
+    FilmGenre createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public FilmGenre getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new FilmGenre(rs) : null;
+    }
+
+    public List<FilmGenre> getByIds(Integer... ids) throws SQLException {
+        List<FilmGenre> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
+    }
+
+
+    public List<FilmGenre> getByFilmId(int id) throws SQLException {
+        ResultSet rs = prepareRequest(SELECT_BY_FILM_ID, id);
+        List<FilmGenre> casts = new ArrayList<>();
+        while (rs.next()){
+            casts.add(new FilmGenre(rs));
+        }
+        return casts;
     }
 
     public FilmGenre getByFilmAndGenre(int film, int actor) throws SQLException {

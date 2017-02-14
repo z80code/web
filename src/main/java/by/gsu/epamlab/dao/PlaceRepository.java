@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Place;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +22,22 @@ public class PlaceRepository extends AbstractRepository<Place> {
     }
 
     @Override
+    Place createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Place getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Place(rs) : null;
+    }
+
+    public List<Place> getByIds(Integer... ids) throws SQLException {
+        List<Place> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public Place getByUserSession(String row, String section, int seat, int theater, int cost) throws SQLException {

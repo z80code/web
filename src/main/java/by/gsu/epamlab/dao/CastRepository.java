@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Cast;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ public class CastRepository extends AbstractRepository<Cast> {
 
     private final static String SELECT_ALL = "select * from casts";
     private final static String SELECT_BY_ID = "select * from casts where casts.id=?";
+    private final static String SELECT_BY_FILM_ID = "select * from casts where casts.filmId=?";
     private final static String SELECT_BY_FILM_ACTOR = "select * from casts where casts.filmId=? and casts.actorId=?";
     private final static String DELETE_BY_ID = "deletePlace from casts where casts.id=?";
     private final static String ADD_CAST = "insert into casts(filmId, actorId) values(?,?)";
@@ -21,10 +23,33 @@ public class CastRepository extends AbstractRepository<Cast> {
     }
 
     @Override
+    Cast createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Cast getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Cast(rs) : null;
     }
+
+    public List<Cast> getByIds(Integer... ids) throws SQLException {
+        List<Cast> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
+    }
+
+    public List<Cast> getByFilmId(int id) throws SQLException {
+        ResultSet rs = prepareRequest(SELECT_BY_FILM_ID, id);
+        List<Cast> casts = new ArrayList<>();
+        while (rs.next()){
+            casts.add(new Cast(rs));
+        }
+        return casts;
+    }
+
 
     public Cast getByFilmAndActor(int film, int actor) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_FILM_ACTOR, film, actor);

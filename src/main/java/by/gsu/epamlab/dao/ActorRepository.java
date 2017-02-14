@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Actor;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +22,23 @@ public class ActorRepository extends AbstractRepository<Actor> {
     }
 
     @Override
+    Actor createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+
+    @Override
     public Actor getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Actor(rs) : null;
+    }
+
+    public List<Actor> getByIds(Integer... ids) throws SQLException {
+        List<Actor> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public Actor getByName(String name) throws SQLException {

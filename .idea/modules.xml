@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/by.training.epam.iml" filepath="$PROJECT_DIR$/.idea/modules/by.training.epam.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/by.training.epam_main.iml" filepath="$PROJECT_DIR$/.idea/modules/by.training.epam_main.iml" group="by.training.epam" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/by.training.epam_test.iml" filepath="$PROJECT_DIR$/.idea/modules/by.training.epam_test.iml" group="by.training.epam" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.User;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +22,22 @@ public class UserRepository extends AbstractRepository<User> {
     }
 
     @Override
+    User createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public User getById(int id) throws SQLException {
         ResultSet rs =prepareRequest(SELECT_BY_ID,id);
         return rs.next() ? new User(rs) : null;
+    }
+
+    public List<User> getByIds(Integer... ids) throws SQLException {
+        List<User> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public User getByLogin(String login) throws SQLException {

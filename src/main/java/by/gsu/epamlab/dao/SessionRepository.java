@@ -1,6 +1,7 @@
 package by.gsu.epamlab.dao;
 
 import by.gsu.epamlab.dao.models.Session;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,9 +23,22 @@ public class SessionRepository extends AbstractRepository<Session> {
     }
 
     @Override
+    Session createByResultSet(ResultSet rs) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Session getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Session(rs) : null;
+    }
+
+    public List<Session> getByIds(Integer... ids) throws SQLException {
+        List<Session> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public Session getByUserSession(int filmId, Date dateTime, int theaterId) throws SQLException {

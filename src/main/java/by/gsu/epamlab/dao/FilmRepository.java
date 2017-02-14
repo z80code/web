@@ -22,9 +22,22 @@ public class FilmRepository extends AbstractRepository<Film> {
     }
 
     @Override
+    Film createByResultSet(ResultSet rs) throws SQLException {
+        return new Film(rs);
+    }
+
+    @Override
     public Film getById(int id) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_ID, id);
         return rs.next() ? new Film(rs) : null;
+    }
+
+    public List<Film> getByIds(Integer... ids) throws SQLException {
+        List<Film> listFilms = new ArrayList<>();
+        for (int id: ids) {
+            listFilms.add(getById(id));
+        }
+        return listFilms;
     }
 
     public Film getByTitleRelease(String title, Date release) throws SQLException {

@@ -8,6 +8,7 @@
 	<meta name=viewport content="width=device-width, initial-scale=1">
 </head>
 <body onload="">
+
 	<div class="container">
 		<div class="container_left">
 			<div class="container_right">
@@ -33,58 +34,78 @@
 						<div id="films">
 							<div class="panel">
 								<div class="plan">
-									<div id="plan" style="overflow: hidden; display: inline-block; float: left;" >
-										<img src="theatres/plans/october_plans.png" alt="" style="margin: 10px; background: #CECECE; display: inline-block; float: left;">
+									<div id="plan">
+										<img  src="theatres/plans/october_plans.png" alt="">
 									</div>
 								</div>
-
-								<div style="color: black; padding: 10px; background: white ; float: left; overflow: hidden; margin: 10px; border-radius: 5px; min-width: 210px;">
-									<h1>Soon...</h1>	
-									<span style='font-family: "Arial Narrow", Arial, sans-serif; font-weight: bold; font-size: 20px;'>Your choose</span><br>
-									<span style='font-family: "Arial Narrow", Arial, sans-serif; font-weight: bold; font-size: 20px;'>Seats:</span><br>
-									<span id="list_of_seats" style='font-family: "Arial Narrow", Arial, sans-serif; font-weight: bold; font-size: 16px; float: right;'>Not selected.</span><br>	
-									<span class="panel_title"><hr>Total cost: </span><br>
-									<span id="total_cost" class="panel_title" style=" float: right;" >BYR 0.00</span>																										
+								<div class="ticket_wrapper">
+									<div class="ticket">
+										<h1>Ticket</h1>	
+										<span class="ticket_title"><hr></span>
+										<span class="ticket_title">Seats:</span>
+										<span id="list_of_seats" class="ticket_row">Not selected.</span>
+										<span class="ticket_title"><hr></span>
+										<span class="ticket_title">Total cost:</span>
+										<span id="total_cost" class="ticket_title" style="float: right;">BYR 0.00</span>														
+									</div>
 								</div>
-							</div>
+								<div class="ticket_wrapper">
+									<div class="ticket">
+										<h1>Press to complite:</h1>	
+										<hr>
+										<div class="box">
+											<a class="button" href="#popup1" onloadstart="return false;">Booking</a>
+										</div>												
+									</div>
+									<div class="ticket_wrapper">
+										<div class="ticket">
+											<h1>Session info:</h1>	
+											<span class="ticket_title"><hr></span>
+											<span class="ticket_title">Total tickets: <span id="total_tickets">###</span></span>
+											<span class="ticket_title"><hr></span>
+											<span class="ticket_title">Solded:</span>
+											<span class="ticket_title">Receirved:</span>	
+											<span class="ticket_title">Free:</span>											
+										</div>
+									</div>
+								</div>
+								<script>		
+									/*seat create*/
+									function createSeat(planElement, seatData, state){
+										var seat = document.createElement("div");
+										var popUpInfo = document.createElement("div");
+										popUpInfo.setAttribute("class", "popup_info");
+										popUpInfo.innerHTML = "id: " +seatData.id+ "</br>"+
+										"Row: "+ (seatData.row||"0") +" "+
+										"Seat: "+ (seatData.seat||"0") +"</br>"+
+										"Cost: "+ (seatData.cost||"0") + " BYR" ;
+										seat.appendChild(popUpInfo);
+										planElement.appendChild(seat);
+										seat.setAttribute("class", "seat_status_" +seatData.state);
+										seat.setAttribute("id", seatData.id);						
+										seat.setAttribute("onclick", "seatClick(this.id);");	
+										seat.setAttribute("style", seat.style + "; left: " + seatData.X + "px; top: "+ seatData.Y + "px;");
+									}
+									/* end */
 
-							<script>		
-								/*seat create*/
-								function createSeat(planElement, seatData, state){
-									var seat = document.createElement("div");
-									var popUpInfo = document.createElement("div");
-									popUpInfo.setAttribute("class", "popup_info");
-									popUpInfo.innerHTML = "id: " +seatData.id+ "</br>"+
-									"Row: "+ (seatData.row||"0") +" "+
-									"Seat: "+ (seatData.seat||"0") +"</br>"+
-									"Cost: "+ (seatData.cost||"0") + " BYR" ;
-									seat.appendChild(popUpInfo);
-									planElement.appendChild(seat);
-									seat.setAttribute("class", "seat_status_" +seatData.state);
-									seat.setAttribute("id", seatData.id);						
-									seat.setAttribute("onclick", "seatClick(this.id);");	
-									seat.setAttribute("style", seat.style + "; left: " + seatData.X + "px; top: "+ seatData.Y + "px;");
-								}
-								/* end */
+									/* my collection for holding selected seats */
+									function SelectPlaceHolder(){
+										var selectedPlaces = [];
+										var next =0;
 
-								/* my collection for holding selected seats */
-								function SelectPlaceHolder(){
-									var selectedPlaces = [];
-									var next =0;
+										this.getLength = function () {
+											return selectedPlaces.length;
+										} 
 
-									this.getLength = function () {
-										return selectedPlaces.length;
-									} 
+										this.add = function(place){
+											selectedPlaces.push(place);
+										};
 
-									this.add = function(place){
-										selectedPlaces.push(place);
-									};
+										this.getArray = function(){
+											return selectedPlaces;
+										};
 
-									this.getArray = function(){
-										return selectedPlaces;
-									};
-
-									this.contains = function(place){
+										this.contains = function(place){
 										// for (var i = 0; i < selectedPlaces.length; i++) {
 										// 	if(selectedPlaces[i].id==place.id) return true;
 										// }
@@ -117,26 +138,32 @@
 
 									document.getElementById(item.id).setAttribute("class", "seat_status_" + state);		
 									
-									 var seatsView = document.getElementById("list_of_seats");
-									 var total_cost = document.getElementById("total_cost");
+									var seatsView = document.getElementById("list_of_seats");
+									var total_cost = document.getElementById("total_cost");
 									// total cost calc
 									console.log(selectPlaces.getLength());
 									if(selectPlaces.getLength()>0){
-												seatsView.innerHTML = 		"";								
+										seatsView.innerHTML = "";								
 										selectPlaces.getArray().forEach(
 											function (seat) {
 												seatsView.innerHTML += 
-												"<p style='display: block;'>"+ "row "+ +seat.row + ", seat: "+ seat.seat +" . . . byr: "+seat.cost.toFixed(2)
+												'<span class="seat">'+ 
+												'<span class="td">row:</span>' + 
+												'<span class="number">' + seat.row + '</span>' +
+												'<span class="td">seat:</span>' + 
+												'<span class="number">' + seat.seat + '</span>' +
+												'<span class="td">:' + '</span>' +
+												'<span class="number">' + seat.cost.toFixed(2) + '</span>'
 												;
 											});
 
-									total_cost.innerHTML = "";
-									var summ= 0;
+										total_cost.innerHTML = "";
+										var summ= 0;
 										selectPlaces.getArray().forEach(
 											function (seat) {
 												summ+= +seat.cost;
 											});										
-									total_cost.innerHTML = "BYR " + summ.toFixed(2);
+										total_cost.innerHTML = "BYR " + summ.toFixed(2);
 									} else {
 										seatsView.innerHTML = "Not selected.";
 										total_cost.innerHTML = "BYR 0.00";
@@ -155,7 +182,7 @@
 										if (j ==5)  state = "recerved";										
 										// var obj = {id: (j*18+i+1), X:i*25 + 70, Y: 13+65 +j*25, state: state};
 										theaterPlacesJSON +='{"id": '+(j*18+i+1)+
-										', "X": '+(i*25 + 70)+
+										', "X": '+(i*25 + 60)+
 										', "Y": '+(13+65 +j*25)+
 										', "state": "'+state+'"' +
 										', "row": '+ (j+1) +
@@ -173,12 +200,23 @@
 									var theaterPlaces = JSON.parse(theaterPlacesJSON);
 
 									// here adding seats by data in the theaterPlaces						
-									theaterPlaces.forEach( function(obj) {
+									theaterPlaces.forEach(function(obj) {
 										// render seat										
 										createSeat(elem, obj);
 									})
 
 								</script>
+							</div>
+							<div id="popup1" class="overlay">
+								<div class="popup">
+									<h2>Warning!</h2>
+									<a class="close" href="">&times;</a>
+									<div class="content"> After you press "Yes" you have 1 hour to pay your booked tickets. In other way you lose your booking.
+									</div>
+									<div class="content buttons">
+										<button class="button">Yes</button><button class="button btn_cancel">Cancel</button>
+									</div>									
+								</div>
 							</div>
 						</main>
 						<!-- /main -->

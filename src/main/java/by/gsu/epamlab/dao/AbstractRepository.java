@@ -12,6 +12,8 @@ abstract class AbstractRepository<T> implements IRepository<T> {
         this.conn = conn;
     }
 
+    abstract T createByResultSet(ResultSet rs) throws SQLException;
+
     private void addParameters(Object... objs) throws SQLException {
         preSt.clearParameters();
         for (int i = 0; i < objs.length; i++) {

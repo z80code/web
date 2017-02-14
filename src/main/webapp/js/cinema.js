@@ -3,7 +3,7 @@ var cinema;
 (function () {
     cinema = new Cinema();
 
-    var films = [
+    var films1 = [
         {
             "filmId": 1,
             "title": "The Great Wall",
@@ -160,12 +160,12 @@ var cinema;
         }
     ];
 
-        function Cookie() {
+    function Cookie() {
         this.setCookie = function (cname, cvalue, exdays) {
             var d = new Date();
-            if(exdays!=undefined) {
-                d.setTime(d.getTime() + (exdays*24*60*60*1000));
-                var expires = "expires="+ d.toUTCString();
+            if (exdays != undefined) {
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
                 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
                 return;
             }
@@ -176,7 +176,7 @@ var cinema;
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
             var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
+            for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
                 while (c.charAt(0) == ' ') {
                     c = c.substring(1);
@@ -206,62 +206,15 @@ var cinema;
             ORDERS: "/api/orders"
         };
 
-        var method = {
-            GET: "get",
-            POST: "post"
-        };
+        this.getCookieManager = function () {
+            return new Cookie();
+        }
 
-       this.getCookieManager = function () {
-           return new Cookie();
-       }
-        
-        
         this.selectSession = function (sessionId) {
             var cookies = new Cookie();
-
             cookies.setCookie("session", sessionId);
             window.location = "receive.html";
         };
-
-        function Element(tag, attr, classAttr, text) {
-
-            this.mainTag = document.createElement(tag);
-
-            this.setAttr = function (attr, classAttr) {
-                this.mainTag.setAttribute(attr, classAttr);
-                return this;
-            };
-
-            this.setWrap = function (wrapTag) {
-                var newTag = document.createElement(wrapTag);
-                newTag.appendChild(this.mainTag);
-                this.mainTag = newTag;
-                return this;
-            };
-
-            this.setText = function (text) {
-                this.mainTag.innerText += text;
-                return this;
-            };
-
-            this.addChild = function (elem) {
-                this.mainTag.appendChild(elem.mainTag);
-                return this;
-            };
-            if (attr != undefined) {
-                this.setAttr(attr, classAttr);
-            }
-
-            if (text != undefined) {
-                this.setText(text);
-            }
-
-            Element.prototype.toString = function () {
-                return this.mainTag.outerHTML;
-            };
-        }
-
-
 
         function FilmView() {
 
@@ -302,13 +255,11 @@ var cinema;
             };
 
 
-
-
             this.getByFilm = function (film) {
                 return new Element(tag.DIV, attr.CLASS, classAttr.PANEL)
                     .addChild(new Element(tag.DIV, attr.CLASS, classAttr.HEADER)
                         .addChild(new Element(tag.DIV, attr.CLASS, classAttr.TITLE, film.title))
-                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.RELEASE, film.year))
+                        .addChild(new Element(tag.DIV, attr.CLASS, classAttr.RELEASE, film.year.getFullYear()))
                         .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUBTITLE)
                             .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_CAPTION, 'Director:'))
                             .addChild(new Element(tag.DIV, attr.CLASS, classAttr.SUB_TEXT, film.director.name))
@@ -415,33 +366,132 @@ var cinema;
 
         this.renderFilmsContent = function () {
             getFilms();
-            var filmHtml = "";
-            films.forEach(function (fm) {
-                filmHtml += new FilmView().getByFilm(fm);
-            });
-            document.getElementById("context").innerHTML = filmHtml;
+
         }
 
+
+        var ajax = new function () {
+
+            var method = {
+                GET: "get",
+                PUT: "put",
+                POST: "post",
+                DELETE: "delete"
+            };
+
+
+            this.get = function (url, func) {
+                return requestFunc(method.GET, url, func);
+            };
+
+            this.put = function (url, func) {
+                return requestFunc(method.PUT, url, func);
+            };
+
+            this.post = function (url, func) {
+                return requestFunc(method.POST, url, func);
+            };
+
+            this.delete = function (url, func) {
+                return requestFunc(method.DELETE, url, func);
+            };
+
+            function requestFunc(method, url, func) {
+                var req = new XMLHttpRequest();
+                req.open(method, url, true);
+                req.send();
+                req.onreadystatechange = function () {
+                    if (req.readyState != 4) return;
+                    if (req.status == 200) {
+                        var requestResult;
+                       // try {
+                            requestResult = JSON.parse(req.responseText, function(key, value) {
+                                if (key == 'year') return new Date(value);
+                                return value;
+                            });
+                            /* a returned object have next structure:
+                             @fields: status  = "error"|"ok",
+                             message = "text of the message if an error detected",
+                             data    = {}
+                             */
+                       // } catch (SyntaxError) {
+                       //     console.log("Can`t parse from json.");
+                       // }
+
+                        if (requestResult.status == "ok") {
+                            func(requestResult.data);
+                        }
+
+                    } else {
+                        alert('Can`t get connection to server.');
+                    }
+                }
+            }
+        };
+
         function getFilms() {
-            request(method.GET, api.FILMS, new function (result) {
+            ajax.get(api.FILMS, function (result) {
+                var filmHtml = "";
+                result.forEach(function (fm) {
+                    filmHtml += new FilmView().getByFilm(fm);
+                });
+                document.getElementById("context").innerHTML = filmHtml;
+
                 //var films = JSON.parse(result);
                 // TODO RENDERING CONTEXT
             });
         }
 
-        function request(method, url, func) {
-            var request = new XMLHttpRequest();
-            request.open(method, url, true);
-            request.send();
-            request.onreadystatechange = function () {
-                if (request.readyState != 4) return;
-                if (request.status == 200) {
-                    func(request.responseText);
-                } else {
-                    // alert('Can`t get connection to server.');
-                }
-            }
-        }
 
     }
+
+
+    function Messages(title, text, button) {
+
+    }
+
+    function Element(tag, attr, classAttr, text) {
+
+        this.mainTag = document.createElement(tag);
+
+        this.setAttr = function (attr, classAttr) {
+            if (!classAttr.isArray) {
+                this.mainTag.setAttribute(attr, classAttr);
+            } else {
+                this.mainTag.setAttribute(attr, classAttr.join(" "));
+            }
+
+            return this;
+        };
+
+        this.setWrap = function (wrapTag) {
+            var newTag = document.createElement(wrapTag);
+            newTag.appendChild(this.mainTag);
+            this.mainTag = newTag;
+            return this;
+        };
+
+        this.setText = function (text) {
+            this.mainTag.innerText += text;
+            return this;
+        };
+
+        this.addChild = function (elem) {
+            this.mainTag.appendChild(elem.mainTag);
+            return this;
+        };
+
+        if (attr != undefined) {
+            this.setAttr(attr, classAttr);
+        }
+
+        if (text != undefined) {
+            this.setText(text);
+        }
+
+        Element.prototype.toString = function () {
+            return this.mainTag.outerHTML;
+        };
+    }
+
 })();
