@@ -1,14 +1,14 @@
 package by.gsu.epamlab.dao.models;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class Session {
 
     private int id;
     private int filmId;
-    private Date dateTime;
+    private Timestamp dateTime;
     private int theaterId;
 
     public Session() {
@@ -17,15 +17,15 @@ public class Session {
     public Session(ResultSet resultSet) throws SQLException {
         this(resultSet.getInt(1),
              resultSet.getInt(2),
-             resultSet.getDate(3),
+             resultSet.getTimestamp(3),
              resultSet.getInt(4));
     }
 
-    public Session(int filmId, Date dateTime,int theaterId) {
+    public Session(int filmId, Timestamp dateTime,int theaterId) {
         this(0, filmId, dateTime, theaterId);
     }
 
-    public Session(int id, int filmId, Date dateTime, int theaterId) {
+    public Session(int id, int filmId, Timestamp dateTime, int theaterId) {
         this.id = id;
         this.filmId = filmId;
         this.dateTime = dateTime;
@@ -48,11 +48,11 @@ public class Session {
         this.filmId = filmId;
     }
 
-    public Date getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 

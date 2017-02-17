@@ -9,160 +9,162 @@
 </head>
 <body onload="">
 
-	<div class="container">
-		<div class="container_left">
-			<div class="container_right">
-				<div class="container_main">
-					<!-- header -->
-					<header id="header">
-						<div>...world of dreams...</div>
-						<img src="images/header_bg.png" alt="">
-					</header>
-					<!-- /header -->
-					<!-- menu -->
-					<nav>
-						<ul>
-							<li><a href="#">films</a></li>
-							<li><a href="#">today</a></li>
-							<li><a href="#">tomorrow</a></li>
-							<li><a href="#">weak</a></li>
-						</ul>
-					</nav>
-					<!-- /menu -->
-					<!-- main -->
-					<main>
-						<div id="films">
-							<div class="panel">
-								<div class="plan">
-									<div id="plan">
-										<img  src="theatres/plans/october_plans.png" alt="">
+<div class="container">
+	<div class="container_left">
+		<div class="container_right">
+			<div class="container_main">
+				<!-- header -->
+				<header id="header">
+					<div>...world of dreams...</div>
+					<img src="images/header_bg.png" alt="">
+				</header>
+				<!-- /header -->
+				<!-- menu -->
+				<nav>
+					<ul>
+						<li><a href="#">films</a></li>
+						<li><a href="#">today</a></li>
+						<li><a href="#">tomorrow</a></li>
+						<li><a href="#">weak</a></li>
+					</ul>
+				</nav>
+				<!-- /menu -->
+				<!-- main -->
+				<main>
+					<div id="films">
+						<div class="panel">
+							<div class="plan">
+								<div id="plan">
+									<img src="theatres/plans/october_plans.png" alt="">
+								</div>
+							</div>
+							<div class="ticket_wrapper">
+								<div class="ticket">
+									<h1>Ticket</h1>
+									<span class="ticket_title"><hr></span>
+									<span class="ticket_title">Seats:</span>
+									<span id="list_of_seats" class="ticket_row">Not selected.</span>
+									<span class="ticket_title"><hr></span>
+									<span class="ticket_title">Total cost:</span>
+									<span id="total_cost" class="ticket_title" style="float: right;">BYR 0.00</span>
+								</div>
+							</div>
+							<div class="ticket_wrapper">
+								<div class="ticket">
+									<h1>Press to completed:</h1>
+									<hr>
+									<div class="box">
+										<a class="button" href="#popup1" onloadstart="return false;">Booking</a>
 									</div>
 								</div>
 								<div class="ticket_wrapper">
 									<div class="ticket">
-										<h1>Ticket</h1>	
+										<h1>Session info:</h1>
 										<span class="ticket_title"><hr></span>
-										<span class="ticket_title">Seats:</span>
-										<span id="list_of_seats" class="ticket_row">Not selected.</span>
+										<span class="ticket_title">Total tickets: <span
+											id="total_tickets">###</span></span>
 										<span class="ticket_title"><hr></span>
-										<span class="ticket_title">Total cost:</span>
-										<span id="total_cost" class="ticket_title" style="float: right;">BYR 0.00</span>														
+										<span class="ticket_title">Sold:</span>
+										<span class="ticket_title">Reserved:</span>
+										<span class="ticket_title">Free:</span>
 									</div>
 								</div>
-								<div class="ticket_wrapper">
-									<div class="ticket">
-										<h1>Press to complite:</h1>	
-										<hr>
-										<div class="box">
-											<a class="button" href="#popup1" onloadstart="return false;">Booking</a>
-										</div>												
-									</div>
-									<div class="ticket_wrapper">
-										<div class="ticket">
-											<h1>Session info:</h1>	
-											<span class="ticket_title"><hr></span>
-											<span class="ticket_title">Total tickets: <span id="total_tickets">###</span></span>
-											<span class="ticket_title"><hr></span>
-											<span class="ticket_title">Solded:</span>
-											<span class="ticket_title">Receirved:</span>	
-											<span class="ticket_title">Free:</span>											
-										</div>
-									</div>
-								</div>
-								<script>		
-									/*seat create*/
-									function createSeat(planElement, seatData, state){
-										var seat = document.createElement("div");
-										var popUpInfo = document.createElement("div");
-										popUpInfo.setAttribute("class", "popup_info");
-										popUpInfo.innerHTML = "id: " +seatData.id+ "</br>"+
-										"Row: "+ (seatData.row||"0") +" "+
-										"Seat: "+ (seatData.seat||"0") +"</br>"+
-										"Cost: "+ (seatData.cost||"0") + " BYR" ;
-										seat.appendChild(popUpInfo);
-										planElement.appendChild(seat);
-										seat.setAttribute("class", "seat_status_" +seatData.state);
-										seat.setAttribute("id", seatData.id);						
-										seat.setAttribute("onclick", "seatClick(this.id);");	
-										seat.setAttribute("style", seat.style + "; left: " + seatData.X + "px; top: "+ seatData.Y + "px;");
+							</div>
+							<script>
+								/*seat create*/
+								function createSeat(planElement, seatData, state) {
+									var seat = document.createElement("div");
+									var popUpInfo = document.createElement("div");
+									popUpInfo.setAttribute("class", "popup_info");
+									popUpInfo.innerHTML = "id: " + seatData.id + "</br>" +
+										"Row: " + (seatData.row || "0") + " " +
+										"Seat: " + (seatData.seat || "0") + "</br>" +
+										"Cost: " + (seatData.cost || "0") + " BYR";
+									seat.appendChild(popUpInfo);
+									planElement.appendChild(seat);
+									seat.setAttribute("class", "seat_status_" + seatData.state);
+									seat.setAttribute("id", seatData.id);
+									seat.setAttribute("onclick", "seatClick(this.id);");
+									seat.setAttribute("style", seat.style + "; left: " + seatData.X + "px; top: " + seatData.Y + "px;");
+								}
+								/* end */
+
+								/* my collection for holding selected seats */
+								function SelectPlaceHolder() {
+									var selectedPlaces = [];
+									var next = 0;
+
+									this.getLength = function () {
+										return selectedPlaces.length;
 									}
-									/* end */
 
-									/* my collection for holding selected seats */
-									function SelectPlaceHolder(){
-										var selectedPlaces = [];
-										var next =0;
+									this.add = function (place) {
+										selectedPlaces.push(place);
+									};
 
-										this.getLength = function () {
-											return selectedPlaces.length;
-										} 
+									this.getArray = function () {
+										return selectedPlaces;
+									};
 
-										this.add = function(place){
-											selectedPlaces.push(place);
-										};
-
-										this.getArray = function(){
-											return selectedPlaces;
-										};
-
-										this.contains = function(place){
+									this.contains = function (place) {
 										// for (var i = 0; i < selectedPlaces.length; i++) {
 										// 	if(selectedPlaces[i].id==place.id) return true;
 										// }
 										return ~selectedPlaces.indexOf(place);
 									};
 
-									this.deletePlace = function(place){
+									this.deletePlace = function (place) {
 										selectedPlaces.splice(selectedPlaces.indexOf(place), 1);
 									}
 								}
 								/* end */
 
-								/* THIS IS HARD CODING :) */								
+								/* THIS IS HARD CODING :) */
 								var selectPlaces = new SelectPlaceHolder();
 
-								// event seat click 
-								function seatClick(id){
-									var	item = theaterPlaces.find((function(item) {return item.id==id;}));
+								// event seat click
+								function seatClick(id) {
+									var item = theaterPlaces.find((function (item) {
+										return item.id == id;
+									}));
 
-									var state = "free";		
+									var state = "free";
 
-									if(item.state!="free") return;
+									if (item.state != "free") return;
 
-									if (selectPlaces.contains(item)){
+									if (selectPlaces.contains(item)) {
 										selectPlaces.deletePlace(item);
 									} else {
 										selectPlaces.add(item);
-										state = "selected";				
+										state = "selected";
 									}
 
-									document.getElementById(item.id).setAttribute("class", "seat_status_" + state);		
-									
+									document.getElementById(item.id).setAttribute("class", "seat_status_" + state);
+
 									var seatsView = document.getElementById("list_of_seats");
 									var total_cost = document.getElementById("total_cost");
 									// total cost calc
-									console.log(selectPlaces.getLength());
-									if(selectPlaces.getLength()>0){
-										seatsView.innerHTML = "";								
+									if (selectPlaces.getLength() > 0) {
+										seatsView.innerHTML = "";
 										selectPlaces.getArray().forEach(
 											function (seat) {
-												seatsView.innerHTML += 
-												'<span class="seat">'+ 
-												'<span class="td">row:</span>' + 
-												'<span class="number">' + seat.row + '</span>' +
-												'<span class="td">seat:</span>' + 
-												'<span class="number">' + seat.seat + '</span>' +
-												'<span class="td">:' + '</span>' +
-												'<span class="number">' + seat.cost.toFixed(2) + '</span>'
+												seatsView.innerHTML +=
+													'<span class="seat">' +
+													'<span class="td">row:</span>' +
+													'<span class="number">' + seat.row + '</span>' +
+													'<span class="td">seat:</span>' +
+													'<span class="number">' + seat.seat + '</span>' +
+													'<span class="td">:' + '</span>' +
+													'<span class="number">' + seat.cost.toFixed(2) + '</span>'
 												;
 											});
 
 										total_cost.innerHTML = "";
-										var summ= 0;
+										var summ = 0;
 										selectPlaces.getArray().forEach(
 											function (seat) {
-												summ+= +seat.cost;
-											});										
+												summ += +seat.cost;
+											});
 										total_cost.innerHTML = "BYR " + summ.toFixed(2);
 									} else {
 										seatsView.innerHTML = "Not selected.";
@@ -172,64 +174,66 @@
 								}
 								// end
 
-								// JSON generator 
+								// JSON generator
 								var theaterPlacesJSON = "[ ";
-								for (var j = 0; j < 21;	j++) {
-									if (j==8 || j==7) continue;
+								for (var j = 0; j < 21; j++) {
+									if (j == 8 || j == 7) continue;
 									for (var i = 0; i < 18; i++) {
 										var state = "free";
-										if (j ==3)  state = "solded";
-										if (j ==5)  state = "recerved";										
-										// var obj = {id: (j*18+i+1), X:i*25 + 70, Y: 13+65 +j*25, state: state};
-										theaterPlacesJSON +='{"id": '+(j*18+i+1)+
-										', "X": '+(i*25 + 60)+
-										', "Y": '+(13+65 +j*25)+
-										', "state": "'+state+'"' +
-										', "row": '+ (j+1) +
-										', "seat": '+ (i+1) +
-										', "cost": '+ 8.50 +									
-										'}';
-										theaterPlacesJSON +=	(i==17 && j==20)?'':', ';		
+										if (j == 3)  state = "solded";
+										if (j == 5)  state = "recerved";
+										theaterPlacesJSON += '{"id": ' + (j * 18 + i + 1) +
+											', "X": ' + (i * 25 + 60) +
+											', "Y": ' + (13 + 65 + j * 25) +
+											', "state": "' + state + '"' +
+											', "row": ' + (j + 1) +
+											', "seat": ' + (i + 1) +
+											', "cost": ' + 8.50 +
+											'}';
+										theaterPlacesJSON += (i == 17 && j == 20) ? '' : ', ';
 									}
 								}
-								theaterPlacesJSON +=" ]";			
+								theaterPlacesJSON += " ]";
 								// end
 
-									// here must be ajax, to get theaterPlaces from server
-									var elem = document.getElementById("plan");								
-									var theaterPlaces = JSON.parse(theaterPlacesJSON);
+								// here must be ajax, to get theaterPlaces from server
+								var elem = document.getElementById("plan");
+								var theaterPlaces = JSON.parse(theaterPlacesJSON);
 
-									// here adding seats by data in the theaterPlaces						
-									theaterPlaces.forEach(function(obj) {
-										// render seat										
-										createSeat(elem, obj);
-									})
+								// here adding seats by data in the theaterPlaces
+								theaterPlaces.forEach(function (obj) {
+									// render seat
+									createSeat(elem, obj);
+								})
 
-								</script>
-							</div>
-							<div id="popup1" class="overlay">
-								<div class="popup">
-									<h2>Warning!</h2>
-									<a class="close" href="">&times;</a>
-									<div class="content"> After you press "Yes" you have 1 hour to pay your booked tickets. In other way you lose your booking.
-									</div>
-									<div class="content buttons">
-										<button class="button">Yes</button><button class="button btn_cancel">Cancel</button>
-									</div>									
+							</script>
+						</div>
+						<div id="popup1" class="overlay">
+							<div class="popup">
+								<h2>Warning!</h2>
+								<a class="close" href="">&times;</a>
+								<div class="content"> After you press "Yes" you have 1 hour to pay your booked tickets.
+									In other way you lose your booking.
+								</div>
+								<div class="content buttons">
+									<button class="button">Yes</button>
+									<button class="button btn_cancel">Cancel</button>
 								</div>
 							</div>
-						</main>
-						<!-- /main -->
-						<!-- footer -->
-						<footer>
-							<div>
-							</div>
-						</footer>
-						<!-- /footer -->
+						</div>
 					</div>
-
-				</div>
+				</main>
+				<!-- /main -->
+				<!-- footer -->
+				<footer>
+					<div>
+					</div>
+				</footer>
+				<!-- /footer -->
 			</div>
+
 		</div>
-	</body>
-	</html>
+	</div>
+</div>
+</body>
+</html>

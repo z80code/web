@@ -4,9 +4,9 @@ import by.gsu.epamlab.dao.models.Session;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +14,9 @@ public class SessionRepository extends AbstractRepository<Session> {
 
     private final static String SELECT_ALL = "select * from sessions";
     private final static String SELECT_BY_ID = "select * from sessions where sessions.id=?";
+    private final static String SELECT_ALL_BY_FILM_ID = "select * from sessions where sessions.filmId=?";
     private final static String SELECT_BY_SESSION = "select * from sessions where sessions.filmId=? and sessions.dateTime=? and sessions.theaterId=?";
-    private final static String DELETE_BY_ID = "deletePlace from sessions where sessions.id=?";
+    private final static String DELETE_BY_ID = "delete * from sessions where sessions.id=?";
     private final static String ADD_USER = "insert into sessions(filmId, dateTime, theaterId) values(?,?,?)";
 
     public SessionRepository(Connection conn) {
@@ -41,7 +42,19 @@ public class SessionRepository extends AbstractRepository<Session> {
         return listFilms;
     }
 
-    public Session getByUserSession(int filmId, Date dateTime, int theaterId) throws SQLException {
+    public List<Session> getByFilmIds(Integer... ids) throws SQLException {
+        List<Session> listFilms = new ArrayList<>();
+
+        for (Integer id: ids) {
+            ResultSet rs = prepareRequest(SELECT_ALL_BY_FILM_ID, id);
+            while (rs.next()) {
+                listFilms.add(new Session(rs));
+            }
+        }
+        return listFilms;
+    }
+
+    public Session getByUserSession(int filmId, Timestamp dateTime, int theaterId) throws SQLException {
         ResultSet rs = prepareRequest(SELECT_BY_SESSION, filmId, dateTime, theaterId);
         return rs.next() ? new Session(rs) : null;
     }

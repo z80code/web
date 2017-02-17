@@ -261,6 +261,7 @@ nav > ul > li.dropdown {
     display: inline-block;
     float: left;
     margin: 10px;
+    box-shadow: 5px 5px 4px gray;
 }
 .panel_text>h2{
     padding: 10px 0;
@@ -628,18 +629,6 @@ font-size: 20px;
   .btn_cancel:hover{
     background: #FFCC00;
   }
-  .btn_cancel:{
-    background: yellow;
-  }
-  @media screen and (max-width: 700px){
-    .box{
-      width: 70%;
-    }
-    .popup{
-      width: 70%;
-    }
-  }
-
 
 
 
@@ -668,6 +657,14 @@ body{
 
 }
 
+@media screen and (max-width: 700px){
+    .box{
+        width: 70%;
+    }
+    .popup{
+        width: 70%;
+    }
+}
 
 @media screen and (max-width: 340px) {
     nav > ul > li {

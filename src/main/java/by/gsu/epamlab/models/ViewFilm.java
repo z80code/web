@@ -11,7 +11,7 @@ public class ViewFilm {
 
     private int filmId;
     private String title;
-    private Date year;
+    private Date date;
     private Director director;
     private List<Actor> actors;
     private String description;
@@ -28,7 +28,7 @@ public class ViewFilm {
                     List<Genre> genres) {
         this.filmId = filmId;
         this.title = title;
-        this.year = year;
+        this.date = year;
         this.director = director;
         this.actors = actors;
         this.description = description;
@@ -53,11 +53,11 @@ public class ViewFilm {
     }
 
     public Date getYear() {
-        return year;
+        return date;
     }
 
     public void setYear(Date year) {
-        this.year = year;
+        this.date = year;
     }
 
     public Director getDirector() {

@@ -1,12 +1,15 @@
 package by.gsu.epamlab.logic;
 
 import by.gsu.epamlab.dao.models.*;
+import by.gsu.epamlab.helpers.Helper;
 import by.gsu.epamlab.models.ViewFilm;
 import by.gsu.epamlab.services.CinemaService;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CinemaLogic {
 
@@ -16,43 +19,17 @@ public class CinemaLogic {
         this.cinemaService = new CinemaService();
     }
 
-    private List<Session> newestThanFilter(Date date, Collection<Session> collection) {
-        List<Session> filteredByDate = new ArrayList<>();
-        Session tempSession;
-        for (Iterator<Session> it = collection.iterator(); it.hasNext(); ) {
-            tempSession = it.next();
-            if (tempSession.getDateTime().compareTo(date) >= 0) {
-                filteredByDate.add(tempSession);
-            }
-        }
-        return filteredByDate;
-    }
+    public List<ViewFilm> getActualFilms() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-    interface Action<T1, T2> {
-        T2 operation(T1 source);
-    }
+        List<Session> actualSessions = new SessionLogic().getActualSession();
 
-    private <T1, T2> List<T2> forEach(Collection<T1> collection, Action<T1, T2> action) {
-        List<T2> resultList = new ArrayList<>();
-        for (T1 item : collection) {
-            resultList.add(action.operation(item));
-        }
-        return resultList;
-    }
+        Set<Integer> onlyFilmsId = new HashSet<>();
 
-    public List<ViewFilm> getActualFilms() throws SQLException {
-
-        List<Session> allSessions = cinemaService.getSessionRepository().getAll();
-
-        Date dateNow = new Date(new java.util.Date().getTime());
-        List<Session> actualSessions = newestThanFilter(dateNow, allSessions);
-
-        SortedSet<Integer> onlyFilmsId = new TreeSet<>();
         for (Session session : actualSessions) {
             onlyFilmsId.add(session.getFilmId());
         }
 
-        List<Film> actualFilms = cinemaService.getFilmsDAO().getByIds( onlyFilmsId.toArray(new Integer[0]));
+        List<Film> actualFilms = cinemaService.getFilmsDAO().getByIds(onlyFilmsId.toArray(new Integer[0]));
 
         List<ViewFilm> actualViewFilms = new ArrayList<>();
 
@@ -63,7 +40,7 @@ public class CinemaLogic {
 
             List<Cast> casts = cinemaService.getCastRepository().getByFilmId(film.getId());
 
-            List<Integer> actorIds = forEach(casts, new Action<Cast, Integer>() {
+            List<Integer> actorIds = Helper.forEach(casts, new Helper.Func<Cast, Integer>() {
                 @Override
                 public Integer operation(Cast source) {
                     return source.getActorId();
@@ -74,7 +51,7 @@ public class CinemaLogic {
 
             List<FilmGenre> filmGenres =  cinemaService.getFilmGenreRepository().getByFilmId(film.getId());
 
-            List<Integer> genreIds = forEach(filmGenres, new Action<FilmGenre, Integer>() {
+            List<Integer> genreIds = Helper.forEach(filmGenres, new Helper.Func<FilmGenre, Integer>() {
                 @Override
                 public Integer operation(FilmGenre source) {
                     return source.getGenreId();
