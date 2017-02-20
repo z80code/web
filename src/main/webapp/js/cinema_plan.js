@@ -1,5 +1,5 @@
 ;
-var plan;
+var plan=
 (function () {
 
 	plan = new Plan();

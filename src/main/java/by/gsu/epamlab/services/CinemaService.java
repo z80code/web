@@ -35,7 +35,7 @@ public class CinemaService {
         this.roleRepository = new RoleRepository(connection);
     }
 
-    public FilmRepository getFilmsRepository() {
+   public FilmRepository getFilmsRepository() {
         return filmsDAO;
     }
 

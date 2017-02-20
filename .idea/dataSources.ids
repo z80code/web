@@ -163,7 +163,8 @@
       </column>
       <column id="51" parent="12" name="dateTime">
         <mandatory>1</mandatory>
-        <data-type>datetime|0</data-type>
+        <data-type>timestamp|0</data-type>
+        <default-expression>CURRENT_TIMESTAMP</default-expression>
       </column>
       <column id="52" parent="12" name="theaterId">
         <data-type>int(11)|0</data-type>
@@ -339,113 +340,126 @@
         <data-type>int(11)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="92" parent="17" name="row">
-        <data-type>varchar(20)|0</data-type>
-      </column>
-      <column id="93" parent="17" name="section">
-        <data-type>varchar(20)|0</data-type>
-      </column>
-      <column id="94" parent="17" name="seat">
+      <column id="92" parent="17" name="seat">
         <data-type>int(11)|0</data-type>
+      </column>
+      <column id="93" parent="17" name="row">
+        <data-type>int(11)|0</data-type>
+      </column>
+      <column id="94" parent="17" name="section">
+        <data-type>binary(50)|0</data-type>
       </column>
       <column id="95" parent="17" name="theaterId">
         <data-type>int(11)|0</data-type>
       </column>
-      <column id="96" parent="17" name="cost">
+      <column id="96" parent="17" name="state">
+        <data-type>varchar(25)|0</data-type>
+      </column>
+      <column id="97" parent="17" name="x">
         <data-type>int(11)|0</data-type>
       </column>
-      <index id="97" parent="17" name="FK_places_theaters_id">
+      <column id="98" parent="17" name="y">
+        <data-type>int(11)|0</data-type>
+      </column>
+      <column id="99" parent="17" name="time">
+        <data-type>timestamp|0</data-type>
+        <default-expression>CURRENT_TIMESTAMP</default-expression>
+      </column>
+      <column id="100" parent="17" name="cost">
+        <data-type>int(11)|0</data-type>
+      </column>
+      <index id="101" parent="17" name="FK_places_theaters_id">
         <columns>theaterId</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="98" parent="17" name="PRIMARY">
+      <key id="102" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="99" parent="17" name="FK_places_theaters_id">
+      <foreign-key id="103" parent="17" name="FK_places_theaters_id">
         <columns>theaterId</columns>
         <ref-key>~.theaters.PRIMARY</ref-key>
         <cascade-update-rule>no_action</cascade-update-rule>
         <cascade-delete-rule>no_action</cascade-delete-rule>
       </foreign-key>
-      <column id="100" parent="18" name="id">
+      <column id="104" parent="18" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="101" parent="18" name="filmId">
+      <column id="105" parent="18" name="filmId">
         <data-type>int(11)|0</data-type>
       </column>
-      <column id="102" parent="18" name="genreId">
+      <column id="106" parent="18" name="genreId">
         <data-type>int(11)|0</data-type>
       </column>
-      <index id="103" parent="18" name="FK_filmgenres_films_id">
+      <index id="107" parent="18" name="FK_filmgenres_films_id">
         <columns>filmId</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="104" parent="18" name="FK_filmgenres_genres_id">
+      <index id="108" parent="18" name="FK_filmgenres_genres_id">
         <columns>genreId</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="105" parent="18" name="PRIMARY">
+      <key id="109" parent="18" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="106" parent="18" name="FK_filmgenres_films_id">
+      <foreign-key id="110" parent="18" name="FK_filmgenres_films_id">
         <columns>filmId</columns>
         <ref-key>~.films.PRIMARY</ref-key>
         <cascade-update-rule>no_action</cascade-update-rule>
         <cascade-delete-rule>no_action</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="107" parent="18" name="FK_filmgenres_genres_id">
+      <foreign-key id="111" parent="18" name="FK_filmgenres_genres_id">
         <columns>genreId</columns>
         <ref-key>~.genres.PRIMARY</ref-key>
         <cascade-update-rule>no_action</cascade-update-rule>
         <cascade-delete-rule>no_action</cascade-delete-rule>
       </foreign-key>
-      <column id="108" parent="19" name="id">
+      <column id="112" parent="19" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="109" parent="19" name="userId">
+      <column id="113" parent="19" name="userId">
         <data-type>int(11)|0</data-type>
       </column>
-      <column id="110" parent="19" name="placeId">
+      <column id="114" parent="19" name="placeId">
         <data-type>int(11)|0</data-type>
       </column>
-      <column id="111" parent="19" name="sessionId">
+      <column id="115" parent="19" name="sessionId">
         <data-type>int(11)|0</data-type>
       </column>
-      <index id="112" parent="19" name="FK_soldedplaces_places_id">
+      <index id="116" parent="19" name="FK_soldedplaces_places_id">
         <columns>placeId</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="113" parent="19" name="FK_soldedplaces_sessions_id">
+      <index id="117" parent="19" name="FK_soldedplaces_sessions_id">
         <columns>sessionId</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="114" parent="19" name="FK_soldedplaces_users_id">
+      <index id="118" parent="19" name="FK_soldedplaces_users_id">
         <columns>userId</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="115" parent="19" name="PRIMARY">
+      <key id="119" parent="19" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="116" parent="19" name="FK_soldedplaces_users_id">
+      <foreign-key id="120" parent="19" name="FK_soldedplaces_users_id">
         <columns>userId</columns>
         <ref-key>~.users.PRIMARY</ref-key>
         <cascade-update-rule>no_action</cascade-update-rule>
         <cascade-delete-rule>no_action</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="117" parent="19" name="FK_soldedplaces_places_id">
+      <foreign-key id="121" parent="19" name="FK_soldedplaces_places_id">
         <columns>placeId</columns>
         <ref-key>~.places.PRIMARY</ref-key>
         <cascade-update-rule>no_action</cascade-update-rule>
         <cascade-delete-rule>no_action</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="118" parent="19" name="FK_soldedplaces_sessions_id">
+      <foreign-key id="122" parent="19" name="FK_soldedplaces_sessions_id">
         <columns>sessionId</columns>
         <ref-key>~.sessions.id_UNIQUE</ref-key>
         <cascade-update-rule>no_action</cascade-update-rule>

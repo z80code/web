@@ -42,7 +42,7 @@ public class SessionController extends CinemaHttpController {
 				// get all sessions with Ids
 				// and get array of session for the Ids
 				Integer[] indexes = Helper.csvIndexesParser(argString);
-				responseData.setData(sessionLogic.getSessionByFilmIds(indexes));
+				responseData.setData(sessionLogic.getActualSessionByFilmIds(indexes));
 			} else { // no
 				// get all actual session
 				responseData.setData(sessionLogic.getActualSession());

@@ -26,8 +26,25 @@ public class SessionLogic {
 		return SessionLogic.getDateFilter(dateNow, allSessions);
 	}
 
-	public List<Session> getSessionByFilmIds(Integer... ids) throws SQLException {
-		return cinemaService.getSessionRepository().getByFilmIds(ids);
+	public List<Session> getActualSessionByFilmIds(Integer... ids) throws SQLException {
+		List<Session> actualSessionForFilms = new ArrayList<>();
+		List<Session> actualSession = getActualSession();
+		for (Integer id : ids) {
+			actualSessionForFilms.addAll(getFilmIdFilter(id, actualSession));
+		}
+		return actualSessionForFilms;
+	}
+
+	private static List<Session> getFilmIdFilter(int filmId, Collection<Session> collection) {
+		List<Session> filteredByFilmId = new ArrayList<>();
+		Session tempSession;
+		for (Session aCollection : collection) {
+			tempSession = aCollection;
+			if (tempSession.getFilmId() == filmId) {
+				filteredByFilmId.add(tempSession);
+			}
+		}
+		return filteredByFilmId;
 	}
 
 	private static List<Session> getDateFilter(Date date, Collection<Session> collection) {
@@ -35,7 +52,7 @@ public class SessionLogic {
 		Session tempSession;
 		for (Session aCollection : collection) {
 			tempSession = aCollection;
-			if (tempSession.getDateTime().compareTo(date) >= 0) {
+			if (tempSession.getDateTime().getTime() >= date.getTime()) {
 				filteredByDate.add(tempSession);
 			}
 		}
