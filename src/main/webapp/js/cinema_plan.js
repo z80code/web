@@ -1,5 +1,5 @@
 ;
-var plan=
+var plan;
 (function () {
 
 	plan = new Plan();
@@ -20,11 +20,7 @@ var plan=
 
 					if (sessionRequestObject.status == "OK") {
 
-
-
 						var viewTemplateModel = sessionRequestObject.data;
-
-						console.log(viewTemplateModel);
 
 						theaterPlaces = viewTemplateModel.placeMap;
 

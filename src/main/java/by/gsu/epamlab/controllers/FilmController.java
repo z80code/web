@@ -30,7 +30,7 @@ public class FilmController extends CinemaHttpController {
 		// get output stream
 		PrintWriter out = resp.getWriter();
 		// create reference to CinemaLogic object
-		CinemaLogic cinemaLogic;
+		CinemaLogic cinemaLogic = null;
 		// create reference and object of ViewModel
 		ViewModel responseData = new ViewModel();
 		try {  // protected code
@@ -57,6 +57,13 @@ public class FilmController extends CinemaHttpController {
 			if (out != null) {
 				out.print(gson.toJson(responseData));
 				out.close();
+			}
+			if(cinemaLogic!=null){
+				try {
+					cinemaLogic.close();
+				} catch (SQLException e) {
+					throw new DatabaseException(e);
+				}
 			}
 		}
 	}

@@ -10,13 +10,10 @@ import by.gsu.epamlab.services.CinemaService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ReserveLogic {
+public class ReserveLogic  extends AbstractLogic {
 
-
-	private CinemaService cinemaService;
-
-	public ReserveLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException{
-		this.cinemaService = cinemaService;
+	public ReserveLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+		super(cinemaService);
 	}
 
 	public ViewSessionInfo getSessionData(Integer sessionId) throws SQLException {

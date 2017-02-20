@@ -12,15 +12,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CinemaLogic {
+public class CinemaLogic extends AbstractLogic {
 
-    private CinemaService cinemaService;
+	public CinemaLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+		super(cinemaService);
+	}
 
-    public CinemaLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
-        this.cinemaService = cinemaService;
-    }
-
-    public List<ViewFilm> getActualFilms(Integer... ids) throws SQLException, ClassNotFoundException {
+	public List<ViewFilm> getActualFilms(Integer... ids) throws SQLException, ClassNotFoundException {
         throw new NotImplementedException();
     }
 

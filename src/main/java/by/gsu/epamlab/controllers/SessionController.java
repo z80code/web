@@ -30,7 +30,7 @@ public class SessionController extends CinemaHttpController {
 		// get output stream
 		PrintWriter out = resp.getWriter();
 		// create reference to sessionLogic object
-		SessionLogic sessionLogic;
+		SessionLogic sessionLogic = null;
 		// create reference and object of ViewModel
 		ViewModel responseData = new ViewModel();
 
@@ -59,6 +59,13 @@ public class SessionController extends CinemaHttpController {
 			if(out!=null){
 				out.print(gson.toJson(responseData));
 				out.close();
+			}
+			if(sessionLogic!=null){
+				try {
+					sessionLogic.close();
+				} catch (SQLException e) {
+					throw new DatabaseException();
+				}
 			}
 		}
 	}

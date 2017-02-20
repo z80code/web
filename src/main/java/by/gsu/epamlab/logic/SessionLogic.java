@@ -10,19 +10,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class SessionLogic {
-
-	private CinemaService cinemaService;
+public class SessionLogic  extends AbstractLogic {
 
 	public SessionLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
-		this.cinemaService = cinemaService;
+		super(cinemaService);
 	}
 
 	public List<Session> getActualSession() throws SQLException {
 		List<Session> allSessions = cinemaService.getSessionRepository().getAll();
-
 		Date dateNow = Helper.getCurrentDameTime();
-
 		return SessionLogic.getDateFilter(dateNow, allSessions);
 	}
 

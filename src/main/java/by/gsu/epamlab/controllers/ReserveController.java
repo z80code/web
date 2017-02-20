@@ -31,7 +31,7 @@ public class ReserveController extends CinemaHttpController {
 
 		PrintWriter out = resp.getWriter();
 
-		ReserveLogic reserveLogic;
+		ReserveLogic reserveLogic = null;
 
 		ViewModel responseData = new ViewModel();
 
@@ -55,6 +55,13 @@ public class ReserveController extends CinemaHttpController {
 			if (out != null) {
 				out.print(gson.toJson(responseData));
 				out.close();
+			}
+			if(reserveLogic!=null){
+				try {
+					reserveLogic.close();
+				} catch (SQLException e) {
+					throw new DatabaseException(e);
+				}
 			}
 		}
 	}

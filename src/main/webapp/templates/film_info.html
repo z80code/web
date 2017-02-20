@@ -1,7 +1,10 @@
 <div class="panel">
 	<div class="panel_header">
 		<div class="panel_title">{{title}}</div>
-		<div class="panel_release">{{year}}</div>
+		<div class="panel_release">&#9675;{{year}}</div>
+		{{#duration}}
+		<div class="panel_duration">&#9675;{{duration}}</div>
+		{{/duration}}
 		<div class="panel_subtitle">
 			<div class="panel_subtitle_caption">Director:</div>
 			<div class="panel_subtitle_text">{{director.name}}</div>
