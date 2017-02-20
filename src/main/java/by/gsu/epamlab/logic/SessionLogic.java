@@ -14,8 +14,8 @@ public class SessionLogic {
 
 	private CinemaService cinemaService;
 
-	public SessionLogic() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		this.cinemaService = new CinemaService();
+	public SessionLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+		this.cinemaService = cinemaService;
 	}
 
 	public List<Session> getActualSession() throws SQLException {
@@ -30,7 +30,7 @@ public class SessionLogic {
 		return cinemaService.getSessionRepository().getByFilmIds(ids);
 	}
 
-	public static List<Session> getDateFilter(Date date, Collection<Session> collection) {
+	private static List<Session> getDateFilter(Date date, Collection<Session> collection) {
 		List<Session> filteredByDate = new ArrayList<>();
 		Session tempSession;
 		for (Session aCollection : collection) {

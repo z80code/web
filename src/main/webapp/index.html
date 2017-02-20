@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Cinemas of Gomel</title>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css">
     <link media="screen" rel="stylesheet" type="text/css" href="styles/styles.css">
     <script src="js/mustache.min.js"></script>
-    <script src="js/cinema.js"></script>
+    <script src="js/cinema_main.js"></script>
     <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
-<body onload="cinema.renderFilmsContent()">
+<body onload="cinema.run()">
 <div class="container">
     <div class="container_left">
         <div class="container_right">
@@ -30,7 +31,7 @@
                 </nav>
                 <!-- /menu -->
                 <!-- main -->
-                <main id="context">
+                <main id="render_context">
                 </main>
                 <!-- /main -->
                 <!-- footer -->

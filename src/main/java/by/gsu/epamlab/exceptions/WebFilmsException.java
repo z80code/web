@@ -1,6 +1,6 @@
 package by.gsu.epamlab.exceptions;
 
-public class WebFilmsException extends Exception {
+public class WebFilmsException extends RuntimeException {
     public WebFilmsException() {
     }
 

@@ -1,6 +1,6 @@
 package by.gsu.epamlab.exceptions;
 
-public class UserExistException extends BaseException {
+public class UserExistException extends WebFilmsException {
 
     public UserExistException() {
         super("User is exist.");

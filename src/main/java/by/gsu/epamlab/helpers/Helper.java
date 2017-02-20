@@ -1,5 +1,7 @@
 package by.gsu.epamlab.helpers;
 
+import by.gsu.epamlab.contants.Constants;
+
 import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public final class Helper {
 		T2 operation(T1 source);
 	}
 
-	public static <T1, T2> T2[] forEach(T1[] array, Func<T1, T2> func, Class<T2> t2Class) {
+	private static <T1, T2> T2[] forEach(T1[] array, Func<T1, T2> func, Class<T2> t2Class) {
 		List<Object> resultList = new ArrayList<>();
 		for (T1 item : array) {
 			T2 passedItem = func.operation(item);
@@ -48,7 +50,7 @@ public final class Helper {
 
 	public static Date getCurrentDameTime(){
 		// warning hardcode
-		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Minsk"));
+		TimeZone.setDefault(TimeZone.getTimeZone(Constants.TIME_ZONE_MINSK));
 		return new Date(new java.util.Date().getTime());
 	}
 }

@@ -2,97 +2,139 @@ package by.gsu.epamlab.dao.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class Place {
-    private int id;
-    private String row;
-    private String section;
-    private int seat;
-    private int theaterId;
-    private int cost;
+	private int id;
+	private int seat;
+	private int row;
+	private String section;
+	private int theaterId;
+	private String state;
+	private int x;
+	private int y;
+	Timestamp addTime;
+	private int cost;
 
-    public Place() {
-    }
-    public Place(ResultSet resultSet) throws SQLException {
-        this(resultSet.getInt(1),
-                resultSet.getString(2),
-                resultSet.getString(3),
-                resultSet.getInt(4),
-                resultSet.getInt(5),
-                resultSet.getInt(6));
-    }
+	public Place() {
+	}
 
-    public Place(String row, String section, int seat, int theaterId, int cost) {
-        this(0, row, section, seat, theaterId, cost);
-    }
+	public Place(int id, int seat, int row, String section, int theaterId, String state, int x, int y, Timestamp addTime, int cost) {
+		this.id = id;
+		this.seat = seat;
+		this.row = row;
+		this.section = section;
+		this.theaterId = theaterId;
+		this.state = state;
+		this.x = x;
+		this.y = y;
+		this.addTime = addTime;
+		this.cost = cost;
+	}
 
-    public Place(int id, String row, String section, int seat, int theaterId, int cost) {
-        this.id = id;
-        this.row = row;
-        this.section = section;
-        this.seat = seat;
-        this.theaterId = theaterId;
-        this.cost = cost;
-    }
+	public Place(int seat, int row, String section, int theaterId, String state, int x, int y, Timestamp addTime, int cost) {
+		this.seat = seat;
+		this.row = row;
+		this.section = section;
+		this.theaterId = theaterId;
+		this.state = state;
+		this.x = x;
+		this.y = y;
+		this.addTime = addTime;
+		this.cost = cost;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public Place(ResultSet resultSet) throws SQLException {
+		this(resultSet.getInt(1),
+				resultSet.getInt(2),
+				resultSet.getInt(3),
+				resultSet.getString(4),
+				resultSet.getInt(5),
+				resultSet.getString(6),
+				resultSet.getInt(7),
+				resultSet.getInt(8),
+				resultSet.getTimestamp(9),
+				resultSet.getInt(10));
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getRow() {
-        return row;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setRow(String row) {
-        this.row = row;
-    }
+	public int getSeat() {
+		return seat;
+	}
 
-    public String getSection() {
-        return section;
-    }
+	public void setSeat(int seat) {
+		this.seat = seat;
+	}
 
-    public void setSection(String section) {
-        this.section = section;
-    }
+	public int getRow() {
+		return row;
+	}
 
-    public int getSeat() {
-        return seat;
-    }
+	public void setRow(int row) {
+		this.row = row;
+	}
 
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
+	public String getSection() {
+		return section;
+	}
 
-    public int getTheaterId() {
-        return theaterId;
-    }
+	public void setSection(String section) {
+		this.section = section;
+	}
 
-    public void setTheaterId(int theaterId) {
-        this.theaterId = theaterId;
-    }
+	public int getTheaterId() {
+		return theaterId;
+	}
 
-    public int getCost() {
-        return cost;
-    }
+	public void setTheaterId(int theaterId) {
+		this.theaterId = theaterId;
+	}
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
+	public String getState() {
+		return state;
+	}
 
-    @Override
-    public String toString() {
-        return "Place{" +
-                "id=" + id +
-                ", row='" + row + '\'' +
-                ", section='" + section + '\'' +
-                ", seat=" + seat +
-                ", theaterId=" + theaterId +
-                ", cost=" + cost +
-                '}';
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public Timestamp getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(Timestamp addTime) {
+		this.addTime = addTime;
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
 }
 

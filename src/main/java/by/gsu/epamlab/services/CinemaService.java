@@ -1,7 +1,6 @@
 package by.gsu.epamlab.services;
 
 import by.gsu.epamlab.dao.*;
-import by.gsu.epamlab.factories.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,8 +20,7 @@ public class CinemaService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
-    public CinemaService() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        Connection connection = ConnectionFactory.getMySQLConnection();
+    public CinemaService(Connection connection) throws ClassNotFoundException, SQLException {
         this.filmsDAO = new FilmRepository(connection);
         this.filmGenreRepository = new FilmGenreRepository(connection);
         this.genreRepository = new GenreRepository(connection);
@@ -37,7 +35,7 @@ public class CinemaService {
         this.roleRepository = new RoleRepository(connection);
     }
 
-    public FilmRepository getFilmsDAO() {
+    public FilmRepository getFilmsRepository() {
         return filmsDAO;
     }
 

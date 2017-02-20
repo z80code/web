@@ -1,6 +1,7 @@
-package by.gsu.epamlab.constants;
+package by.gsu.epamlab.enums;
 
 public enum IndexPosition {
+    ZERO(0),
     FIRST(1),
     SECOND(2),
     THIRD(3),

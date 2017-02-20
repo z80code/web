@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionFactory {
+public final class ConnectionFactory {
 
-    public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException, IllegalAccessException, InstantiationException {
+    public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
             String dbUrl = "jdbc:mysql://localhost/webfilms?useSSL=false";
             String user = "root";
             String password = "root";
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(dbUrl, user, password);
     }
 }

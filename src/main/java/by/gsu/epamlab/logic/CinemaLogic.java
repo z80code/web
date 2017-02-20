@@ -4,6 +4,7 @@ import by.gsu.epamlab.dao.models.*;
 import by.gsu.epamlab.helpers.Helper;
 import by.gsu.epamlab.models.ViewFilm;
 import by.gsu.epamlab.services.CinemaService;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,13 +16,17 @@ public class CinemaLogic {
 
     private CinemaService cinemaService;
 
-    public CinemaLogic() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        this.cinemaService = new CinemaService();
+    public CinemaLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+        this.cinemaService = cinemaService;
     }
 
-    public List<ViewFilm> getActualFilms() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public List<ViewFilm> getActualFilms(Integer... ids) throws SQLException, ClassNotFoundException {
+        throw new NotImplementedException();
+    }
 
-        List<Session> actualSessions = new SessionLogic().getActualSession();
+    public List<ViewFilm> getActualFilms() throws SQLException, ClassNotFoundException {
+
+        List<Session> actualSessions = new SessionLogic(cinemaService).getActualSession();
 
         Set<Integer> onlyFilmsId = new HashSet<>();
 
@@ -29,7 +34,7 @@ public class CinemaLogic {
             onlyFilmsId.add(session.getFilmId());
         }
 
-        List<Film> actualFilms = cinemaService.getFilmsDAO().getByIds(onlyFilmsId.toArray(new Integer[0]));
+        List<Film> actualFilms = cinemaService.getFilmsRepository().getByIds(onlyFilmsId.toArray(new Integer[0]));
 
         List<ViewFilm> actualViewFilms = new ArrayList<>();
 
