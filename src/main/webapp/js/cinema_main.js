@@ -1,12 +1,11 @@
-;var cinema;
+;
 var api = {
 	FILMS: "/api/film/",
 	SESSIONS: "/api/session/",
 	RESERVE: "/api/reserve/",
 	ORDERS: "/api/order/"
 };
-(function () {
-	cinema = new Cinema();
+var cinema = (function () {
 
 	function Cinema() {
 
@@ -119,6 +118,7 @@ var api = {
 	function Messages(title, text, button) {
 		// TODO window show
 	}
+	return new Cinema();
 })();
 
 

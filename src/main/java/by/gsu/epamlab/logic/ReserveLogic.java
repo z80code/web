@@ -23,6 +23,7 @@ public class ReserveLogic  extends AbstractLogic {
 		Theater userSelectedTheater = cinemaService.getTheaterRepository().getById(userSelectedSession.getTheaterId());
 	//	Integer[] userSelectedPlaces = cinemaService.getSoldPlaceRepository().getUserSession();
 		return new ViewSessionInfo(
+				userSelectedSession,
 				userSelectedTheater,
 				userSelectedFilm,
 				theaterPlaces,

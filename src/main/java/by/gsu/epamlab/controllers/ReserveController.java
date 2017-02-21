@@ -37,7 +37,7 @@ public class ReserveController extends CinemaHttpController {
 
 		try {
 
-			if (argString.length() == 1) {
+			if (argString.length() > 0) {
 				reserveLogic = new ReserveLogic(getCinemaService());
 				Integer[] indexes = Helper.csvIndexesParser(argString);
 				responseData.setData(reserveLogic.getSessionData(indexes[IndexPosition.ZERO.getIndex()]));

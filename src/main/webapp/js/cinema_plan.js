@@ -1,14 +1,10 @@
-;
-var plan;
-(function () {
-
-	plan = new Plan();
+;var plan=(function () {
 
 	function Plan() {
-
 		var selectPlaces = new SelectPlaceHolder();
 		var theaterPlaces;
 		this.run = function () {
+
 			if (!cookies.checkCookie("sessionId")) document.location = "/";
 			var sessionId = cookies.getCookie("sessionId");
 			var SEAT_BOOKING_TEMPLATE = "/templates/seat_booking.html";
@@ -169,5 +165,7 @@ var plan;
 
 		/* end */
 	}
+
+	return new Plan();
 })();
 
