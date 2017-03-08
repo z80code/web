@@ -1,8 +1,8 @@
 package by.gsu.epamlab.logic;
 
+import by.gsu.epamlab.dao.CinemaDAO;
 import by.gsu.epamlab.dao.models.Session;
 import by.gsu.epamlab.helpers.Helper;
-import by.gsu.epamlab.services.CinemaService;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SessionLogic  extends AbstractLogic {
 
-	public SessionLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+	public SessionLogic(CinemaDAO cinemaService) throws ClassNotFoundException, SQLException {
 		super(cinemaService);
 	}
 

@@ -5,9 +5,9 @@
 		var theaterPlaces;
 		this.run = function () {
 
-			if (!cookies.checkCookie("sessionId")) document.location = "/";
+			if (!cookies.checkCookie("sessionId")) document.location = "../";
 			var sessionId = cookies.getCookie("sessionId");
-			var SEAT_BOOKING_TEMPLATE = "/templates/seat_booking.html";
+			var SEAT_BOOKING_TEMPLATE = "../templates/seat_booking.html";
 			ajax.get(SEAT_BOOKING_TEMPLATE, function (booking_template) {
 
 				ajax.get(api.RESERVE + sessionId, function (sessionRequestResult) {
@@ -44,19 +44,13 @@
 							// render seat
 							planRoot.appendChild(createSeat(obj).mainTag);
 						});
-
 					}
-
 				});
 			});
 		};
 
 		this.sendReserve = function () {
 			ajax.put(api.RESERVE, function (resultReserve){
-
-
-
-
 			console.log(resultReserve);
 			}, selectPlaces.getArray());
 		};

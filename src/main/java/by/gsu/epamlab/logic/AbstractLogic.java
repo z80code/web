@@ -1,14 +1,14 @@
 package by.gsu.epamlab.logic;
 
-import by.gsu.epamlab.services.CinemaService;
+import by.gsu.epamlab.dao.CinemaDAO;
 
 import java.sql.SQLException;
 
 abstract class AbstractLogic {
 
-	CinemaService cinemaService;
+	CinemaDAO cinemaService;
 
-	public AbstractLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+	public AbstractLogic(CinemaDAO cinemaService) throws ClassNotFoundException, SQLException {
 		this.cinemaService = cinemaService;
 	}
 

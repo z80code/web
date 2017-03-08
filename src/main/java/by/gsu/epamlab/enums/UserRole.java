@@ -1,9 +1,9 @@
 package by.gsu.epamlab.enums;
 
-public enum SeatState {
-	FREE,
-	RESERVE,
-	SOLD;
+public enum UserRole {
+	USER,
+	MODERATOR,
+	ADMIN;
 
 	@Override
 	public String toString() {

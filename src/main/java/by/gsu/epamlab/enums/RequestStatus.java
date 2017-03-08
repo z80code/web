@@ -2,6 +2,7 @@ package by.gsu.epamlab.enums;
 
 public enum RequestStatus {
 	OK,
+	AUTH_ERROR,
 	ERROR;
 
 	@Override

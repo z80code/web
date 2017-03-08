@@ -2,12 +2,16 @@ package by.gsu.epamlab.helpers;
 
 import by.gsu.epamlab.contants.Constants;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.TimeZone;
+
+import static by.gsu.epamlab.contants.Constants.*;
 
 public final class Helper {
 
@@ -52,5 +56,18 @@ public final class Helper {
 		// warning hardcode
 		TimeZone.setDefault(TimeZone.getTimeZone(Constants.TIME_ZONE_MINSK));
 		return new Date(new java.util.Date().getTime());
+	}
+
+	public static void setCookie(String cookieName, String userName, HttpServletResponse resp){
+		Cookie cookie = new Cookie(cookieName, userName);
+		cookie.setPath(CURRENT_URI);
+		cookie.setMaxAge(EXPIRY_FOR_SESSION);
+		resp.addCookie(cookie);
+	}
+
+	public static void deleteCookie(String cookieName, HttpServletResponse resp){
+		Cookie cookie = new Cookie(cookieName, null);
+		cookie.setMaxAge(EXPIRY_DELETE);
+		resp.addCookie(cookie);
 	}
 }

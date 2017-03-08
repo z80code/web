@@ -3,14 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cinemas of Gomel</title>
-	<link href="styles/bootstrap.min.css" rel="stylesheet">
-	<link media="screen" rel="stylesheet" type="text/css" href="styles/styles.css">
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/mustache.min.js"></script>
-	<script src="js/cinema_main.js"></script>
+	<link href="../styles/bootstrap.min.css" rel="stylesheet">
+	<link media="screen" rel="stylesheet" type="text/css" href="../styles/styles.css">
+	<script src="../js/jquery.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/mustache.min.js"></script>
+	<script src="../js/cinema_main.js"></script>
 	<meta name=viewport content="width=device-width, initial-scale=1">
-	<script>if(cookies.checkCookie("user")){document.location="/user"}</script>
+
 </head>
 <body onload="cinema.run()">
 <div class="container" style="padding: 0; background: black;">
@@ -21,7 +21,7 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span>
-					<span class="ic on-bar"></span>
+					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
@@ -34,11 +34,12 @@
 					<li><a href="#">today</a></li>
 					<li><a href="#">tomorrow</a></li>
 					<li><a href="#">weak</a></li>
+					<li><a href="#">Admin panel</a></li>
 				</ul>
-				<ul id="loginPlace" class="nav navbar-nav navbar-right">
+				<ul id="loginPlace" user_log_temp class="nav navbar-nav navbar-right">
 				</ul>
 				<script id="user_log_temp" type="temp">
-						<li><a href="logout">{{userName}}, logout</a></li>
+						<li><a href="../logout">{{userName}}, logout</a></li>
 				</script>
 				<script id="user_not_log_temp" type="temp">
 						<li class="dropdown">
@@ -70,7 +71,6 @@
 							</li>
 						</ul>
 					</li>
-
 				</script>
 				<script>
 					cinema.getLoginData(document.getElementById("user_log_temp"), document.getElementById("user_not_log_temp"), loginPlace);
@@ -87,7 +87,7 @@
 				<!-- header -->
 				<header id="header">
 					<div>...world of dreams...</div>
-					<img src="images/header_bg.png" alt="">
+					<img src="../images/header_bg.png" alt="">
 				</header>
 				<!-- /header -->
 				<!-- main -->

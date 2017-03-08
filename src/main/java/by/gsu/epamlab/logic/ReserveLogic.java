@@ -1,18 +1,18 @@
 package by.gsu.epamlab.logic;
 
+import by.gsu.epamlab.dao.CinemaDAO;
 import by.gsu.epamlab.dao.models.Film;
 import by.gsu.epamlab.dao.models.Place;
 import by.gsu.epamlab.dao.models.Session;
 import by.gsu.epamlab.dao.models.Theater;
 import by.gsu.epamlab.models.ViewSessionInfo;
-import by.gsu.epamlab.services.CinemaService;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ReserveLogic  extends AbstractLogic {
 
-	public ReserveLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+	public ReserveLogic(CinemaDAO cinemaService) throws ClassNotFoundException, SQLException {
 		super(cinemaService);
 	}
 
@@ -30,4 +30,8 @@ public class ReserveLogic  extends AbstractLogic {
 				new Integer[]{}
 		);
 	}
+
+
+
+
 }

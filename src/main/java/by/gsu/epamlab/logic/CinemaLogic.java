@@ -1,9 +1,9 @@
 package by.gsu.epamlab.logic;
 
+import by.gsu.epamlab.dao.CinemaDAO;
 import by.gsu.epamlab.dao.models.*;
 import by.gsu.epamlab.helpers.Helper;
 import by.gsu.epamlab.models.ViewFilm;
-import by.gsu.epamlab.services.CinemaService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class CinemaLogic extends AbstractLogic {
 
-	public CinemaLogic(CinemaService cinemaService) throws ClassNotFoundException, SQLException {
+	public CinemaLogic(CinemaDAO cinemaService) throws ClassNotFoundException, SQLException {
 		super(cinemaService);
 	}
 
